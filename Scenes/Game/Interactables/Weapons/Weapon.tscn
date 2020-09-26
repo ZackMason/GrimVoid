@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Game/Interactables/Interactable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/gun_001.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Game/Components/Health.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Game/Interactables/Weapons/Weapon.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1.7509, 1.95046 )
+
+[node name="Weapon" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="Health" parent="." index="1" instance=ExtResource( 3 )]
+position = Vector2( 0, -1.99938 )
+scale = Vector2( 0.0284232, 0.0284232 )
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="2"]
+position = Vector2( 2.09585, -0.734161 )
+rotation = -1.95013e-13
+enabled = true
+cast_to = Vector2( 100, 0 )
+collision_mask = 2147483655
+collide_with_areas = true
+
+[node name="gun_001" type="Sprite" parent="." index="3"]
+scale = Vector2( 0.286252, 0.286252 )
+texture = ExtResource( 2 )

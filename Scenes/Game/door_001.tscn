@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Door.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/door_001.png" type="Texture" id=3]
+
+
+
+[node name="door_001" type="Sprite"]
+position = Vector2( -35.107, 67.061 )
+rotation = -1.57079
+texture = ExtResource( 3 )
+
+[node name="Interactable" parent="." instance=ExtResource( 2 )]

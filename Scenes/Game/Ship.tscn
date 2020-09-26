@@ -1,0 +1,149 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/Game/Interactables/Weapons/Weapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game/Room.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Door.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Ship.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/PilotSeat.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Heater.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Oxygenerater.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Breach.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Engine.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Generator.tscn" type="PackedScene" id=10]
+
+[node name="ShipBody" type="KinematicBody2D"]
+position = Vector2( 0, -85.5 )
+script = ExtResource( 4 )
+
+[node name="Ship" type="Node2D" parent="."]
+position = Vector2( 0, -40 )
+
+[node name="Floors" type="Node2D" parent="Ship"]
+
+[node name="Pilot" parent="Ship/Floors" instance=ExtResource( 2 )]
+
+[node name="Hull" parent="Ship/Floors" instance=ExtResource( 2 )]
+position = Vector2( 0, 67.0615 )
+
+[node name="Hull2" parent="Ship/Floors" instance=ExtResource( 2 )]
+position = Vector2( 0, 133.657 )
+
+[node name="Hull3" parent="Ship/Floors" instance=ExtResource( 2 )]
+position = Vector2( 0, 200.332 )
+
+[node name="Hull4" parent="Ship/Floors" instance=ExtResource( 2 )]
+position = Vector2( 69.7944, 200.332 )
+
+[node name="Hull5" parent="Ship/Floors" instance=ExtResource( 2 )]
+position = Vector2( -69.794, 200.332 )
+
+[node name="RightWing" parent="Ship/Floors" instance=ExtResource( 2 )]
+position = Vector2( 69.7944, 67.0615 )
+
+[node name="LeftWing" parent="Ship/Floors" instance=ExtResource( 2 )]
+position = Vector2( -69.794, 67.061 )
+
+[node name="Systems" type="Node2D" parent="Ship"]
+position = Vector2( 0, 40 )
+
+[node name="Breach" parent="Ship/Systems" instance=ExtResource( 8 )]
+position = Vector2( 4.70599, 158.837 )
+scale = Vector2( 0.498663, 0.498663 )
+
+[node name="Heater" parent="Ship/Systems" instance=ExtResource( 6 )]
+position = Vector2( -20, 48.4246 )
+scale = Vector2( 0.255148, 0.255148 )
+
+[node name="Heater2" parent="Ship/Systems" instance=ExtResource( 6 )]
+position = Vector2( 20, 114.024 )
+scale = Vector2( 0.255148, 0.255148 )
+
+[node name="Oxygenerater" parent="Ship/Systems" instance=ExtResource( 7 )]
+position = Vector2( -87.991, 43.8238 )
+rotation = 1.57079
+scale = Vector2( 0.407007, 0.407007 )
+
+[node name="Oxygenerater2" parent="Ship/Systems" instance=ExtResource( 7 )]
+position = Vector2( -16.1356, 114.024 )
+scale = Vector2( 0.407007, 0.407007 )
+
+[node name="Oxygenerater3" parent="Ship/Systems" instance=ExtResource( 7 )]
+position = Vector2( 83.5488, 142.104 )
+scale = Vector2( 0.407007, 0.407007 )
+
+[node name="Generator" parent="Ship/Systems" instance=ExtResource( 10 )]
+position = Vector2( -20, 76.5189 )
+scale = Vector2( 0.285951, 0.285951 )
+
+[node name="Generator2" parent="Ship/Systems" instance=ExtResource( 10 )]
+position = Vector2( -20, 85.5 )
+scale = Vector2( 0.285951, 0.285951 )
+
+[node name="Generator3" parent="Ship/Systems" instance=ExtResource( 10 )]
+position = Vector2( -20, 95.1519 )
+scale = Vector2( 0.285951, 0.285951 )
+
+[node name="Generator4" parent="Ship/Systems" instance=ExtResource( 10 )]
+position = Vector2( 70.5246, 140.853 )
+scale = Vector2( 0.285951, 0.285951 )
+
+[node name="Doors" type="Node2D" parent="Ship"]
+
+[node name="Interactable2" parent="Ship/Doors" instance=ExtResource( 3 )]
+position = Vector2( -34.973, 67.0615 )
+rotation = -1.57079
+
+[node name="Interactable3" parent="Ship/Doors" instance=ExtResource( 3 )]
+position = Vector2( 34.7442, 67.0615 )
+rotation = -1.57079
+
+[node name="Interactable4" parent="Ship/Doors" instance=ExtResource( 3 )]
+position = Vector2( 0, 32 )
+rotation = -3.14159
+
+[node name="Interactable5" parent="Ship/Doors" instance=ExtResource( 3 )]
+position = Vector2( 0, 99.061 )
+rotation = -3.14159
+
+[node name="Interactable6" parent="Ship/Doors" instance=ExtResource( 3 )]
+position = Vector2( 0, 165.657 )
+rotation = -3.14159
+
+[node name="Interactable7" parent="Ship/Doors" instance=ExtResource( 3 )]
+position = Vector2( -35.3036, 200.332 )
+rotation = -4.71238
+
+[node name="Interactable8" parent="Ship/Doors" instance=ExtResource( 3 )]
+position = Vector2( 35.2511, 200.332 )
+rotation = -4.71238
+
+[node name="Interactable9" parent="Ship/Doors" instance=ExtResource( 3 )]
+position = Vector2( 98.2798, 200.332 )
+rotation = -4.71238
+sealed = true
+
+[node name="Engines" type="Node2D" parent="Ship"]
+
+[node name="Engine" parent="Ship/Engines" instance=ExtResource( 9 )]
+position = Vector2( 69.7944, 105.175 )
+
+[node name="Engine2" parent="Ship/Engines" instance=ExtResource( 9 )]
+position = Vector2( 67.8168, 240.257 )
+
+[node name="Engine3" parent="Ship/Engines" instance=ExtResource( 9 )]
+position = Vector2( -72.8494, 105.175 )
+
+[node name="Engine4" parent="Ship/Engines" instance=ExtResource( 9 )]
+position = Vector2( -72.8494, 240.257 )
+
+[node name="PilotSeat" parent="Ship" instance=ExtResource( 5 )]
+position = Vector2( 0, -16 )
+scale = Vector2( 0.266547, 0.266547 )
+ship_path = NodePath("../../../ShipBody")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( 0, -80, 40, -72, 40, -24, 104, -8, 104, 64, -104, 64, -104, -8, -40, -24, -40, -72 )
+
+[node name="Weapon" parent="." instance=ExtResource( 1 )]
+position = Vector2( 14.4497, 83.4798 )

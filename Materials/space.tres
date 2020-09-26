@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://Materials/space_shader.tres" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/global_transform = Transform2D( 24.606, 0, 0, 24, -261.044, 243.994 )
+shader_param/camera_position = Vector2( -304.781, 234.935 )
+shader_param/c1 = null
+shader_param/c2 = null
+shader_param/c3 = null

@@ -1,0 +1,188 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://Scenes/Game/sun.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game/Planet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Levels/Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Game/Ship.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Game/Guy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sprites/light.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Levels/Space.gd" type="Script" id=7]
+[ext_resource path="res://Materials/space_shader.tres" type="Shader" id=8]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Door.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Generator.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Game/Room.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Heater.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Oxygenerater.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Levels/test.tscn" type="PackedScene" id=14]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+seed = 1
+octaves = 6
+period = 254.1
+persistence = 0.678
+lacunarity = 2.5
+
+[sub_resource type="NoiseTexture" id=2]
+seamless = true
+noise = SubResource( 1 )
+
+[sub_resource type="OpenSimplexNoise" id=3]
+period = 166.4
+persistence = 0.629
+lacunarity = 3.06
+
+[sub_resource type="NoiseTexture" id=4]
+seamless = true
+noise = SubResource( 3 )
+
+[sub_resource type="OpenSimplexNoise" id=5]
+
+[sub_resource type="NoiseTexture" id=6]
+seamless = true
+noise = SubResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 8 )
+shader_param/global_transform = Transform2D( 24.606, 0, 0, 24, -261.044, 243.994 )
+shader_param/camera_position = Vector2( -304.781, 234.935 )
+shader_param/c1 = Color( 0.956863, 0.027451, 0.027451, 1 )
+shader_param/c2 = Color( 0.0705882, 0.494118, 0.941176, 1 )
+shader_param/c3 = Color( 0.4, 0.498039, 0.14902, 1 )
+shader_param/n1 = SubResource( 2 )
+shader_param/n2 = SubResource( 4 )
+shader_param/n3 = SubResource( 6 )
+
+[sub_resource type="OpenSimplexNoise" id=8]
+
+[sub_resource type="NoiseTexture" id=9]
+noise = SubResource( 8 )
+
+[node name="World" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="." groups=[
+"camera",
+]]
+position = Vector2( -304.781, 234.935 )
+rotating = true
+current = true
+zoom = Vector2( 0.2, 0.2 )
+script = ExtResource( 3 )
+follow = NodePath("../ShipBody/Guy")
+follow_ship = NodePath("../ShipBody")
+
+[node name="Light2D" type="Light2D" parent="Camera2D" groups=[
+"darkness",
+]]
+visible = false
+scale = Vector2( 42.25, 42.25 )
+texture = ExtResource( 6 )
+color = Color( 0, 0, 0, 1 )
+mode = 3
+
+[node name="Tween" type="Tween" parent="Camera2D"]
+
+[node name="Node2D" type="Node2D" parent="Camera2D"]
+
+[node name="Sprite" type="Sprite" parent="Camera2D/Node2D"]
+material = SubResource( 10 )
+position = Vector2( 43.7373, 9.05945 )
+scale = Vector2( 24.606, 24 )
+texture = SubResource( 9 )
+script = ExtResource( 7 )
+
+[node name="Sun" parent="." instance=ExtResource( 1 )]
+
+[node name="Sprite" parent="." instance=ExtResource( 2 )]
+position = Vector2( -344.729, 0.81601 )
+
+[node name="ShipBody" parent="." instance=ExtResource( 4 )]
+
+[node name="Guy" parent="ShipBody" instance=ExtResource( 5 )]
+position = Vector2( 15.459, 82.5891 )
+z_index = 2
+
+[node name="Station" type="Node2D" parent="."]
+position = Vector2( 178.595, -415.077 )
+
+[node name="Room" parent="Station" instance=ExtResource( 11 )]
+
+[node name="Room2" parent="Station" instance=ExtResource( 11 )]
+position = Vector2( 66.4813, 0 )
+
+[node name="Room3" parent="Station" instance=ExtResource( 11 )]
+position = Vector2( 66.4813, 66.3489 )
+
+[node name="Room4" parent="Station" instance=ExtResource( 11 )]
+position = Vector2( 133.757, 66.3489 )
+
+[node name="Room5" parent="Station" instance=ExtResource( 11 )]
+position = Vector2( 133.757, 133.977 )
+
+[node name="Room6" parent="Station" instance=ExtResource( 11 )]
+position = Vector2( 198.831, 65.9004 )
+
+[node name="Room7" parent="Station" instance=ExtResource( 11 )]
+position = Vector2( 198.831, 0.660095 )
+
+[node name="Door" parent="Station" instance=ExtResource( 9 )]
+position = Vector2( 67.3649, 33.4297 )
+
+[node name="Door3" parent="Station" instance=ExtResource( 9 )]
+position = Vector2( 199.681, 33.4297 )
+
+[node name="Door4" parent="Station" instance=ExtResource( 9 )]
+position = Vector2( 134.441, 99.6711 )
+
+[node name="Door8" parent="Station" instance=ExtResource( 9 )]
+position = Vector2( 129.769, 170.251 )
+sealed = true
+
+[node name="Door5" parent="Station" instance=ExtResource( 9 )]
+position = Vector2( 99.0674, 67.4681 )
+rotation = -1.57079
+
+[node name="Door6" parent="Station" instance=ExtResource( 9 )]
+position = Vector2( 165.809, 67.4681 )
+rotation = -1.57079
+
+[node name="Door7" parent="Station" instance=ExtResource( 9 )]
+position = Vector2( 33.1259, -0.393127 )
+rotation = -1.57079
+
+[node name="Generator" parent="Station" instance=ExtResource( 10 )]
+position = Vector2( 47.1826, 85.7839 )
+scale = Vector2( 0.315448, 0.315448 )
+powered_on = true
+
+[node name="Generator2" parent="Station" instance=ExtResource( 10 )]
+position = Vector2( 57.3292, 85.7839 )
+scale = Vector2( 0.315448, 0.315448 )
+powered_on = true
+
+[node name="Oxygenerater" parent="Station" instance=ExtResource( 13 )]
+position = Vector2( 48.3442, 46.0583 )
+scale = Vector2( 0.315448, 0.315448 )
+powered_on = true
+
+[node name="Oxygenerater2" parent="Station" instance=ExtResource( 13 )]
+position = Vector2( 48.3442, 52.4333 )
+scale = Vector2( 0.315448, 0.315448 )
+powered_on = true
+
+[node name="Heater" parent="Station" instance=ExtResource( 12 )]
+position = Vector2( 84.1075, 85.6419 )
+scale = Vector2( 0.315448, 0.315448 )
+powered_on = true
+
+[node name="Heater2" parent="Station" instance=ExtResource( 12 )]
+position = Vector2( 84.1075, 47.8918 )
+scale = Vector2( 0.315448, 0.315448 )
+powered_on = true
+
+[node name="Generator3" parent="Station" instance=ExtResource( 10 )]
+position = Vector2( 66.768, 85.784 )
+scale = Vector2( 0.315448, 0.315448 )
+powered_on = true
+
+[node name="Node2D" parent="." instance=ExtResource( 14 )]
+position = Vector2( 345.546, 81.3348 )

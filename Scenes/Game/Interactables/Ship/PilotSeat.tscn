@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Game/Components/Health.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game/Interactables/Interactable.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/PilotSeat.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/driver_001.png" type="Texture" id=4]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+polygon = PoolVector2Array( -16.5539, -14.6961, 16.0006, -15.4393, 17.9331, 13.5476, -18.3377, 13.1017 )
+
+[node name="PilotSeat" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
+[node name="driver_001" type="Sprite" parent="." index="1"]
+position = Vector2( 0, -4.16693 )
+texture = ExtResource( 4 )
+
+[node name="Health" parent="." index="2" instance=ExtResource( 1 )]
+position = Vector2( 0, 21.3875 )
+scale = Vector2( 0.198209, 0.198209 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="3"]
+occluder = SubResource( 1 )

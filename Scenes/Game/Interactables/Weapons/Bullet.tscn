@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Game/Interactables/Weapons/Bullet.gd" type="Script" id=1]
+
+[node name="Bullet" type="CPUParticles2D"]
+emitting = false
+amount = 1
+one_shot = true
+local_coords = false
+spread = 3.71
+gravity = Vector2( 0, 0 )
+initial_velocity = 175.0
+color = Color( 0.968627, 0.933333, 0.0352941, 1 )
+script = ExtResource( 1 )

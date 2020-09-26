@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Game/Components/Health.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game/Interactables/Interactable.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/DoorInteractable.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/door_001.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.07401, 16.5243 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 1.79725
+
+[node name="Door" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="door_001" type="Sprite" parent="." index="1"]
+z_index = 2
+texture = ExtResource( 4 )
+
+[node name="ExitA" type="Position2D" parent="." index="2"]
+position = Vector2( 0, -15.0035 )
+
+[node name="RoomADetector" type="Area2D" parent="ExitA" index="0"]
+position = Vector2( 0.132431, -0.0662155 )
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitA/RoomADetector" index="0"]
+shape = SubResource( 2 )
+
+[node name="ExitB" type="Position2D" parent="." index="3"]
+position = Vector2( 0, 15.0035 )
+
+[node name="RoomBDetector" type="Area2D" parent="ExitB" index="0"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitB/RoomBDetector" index="0"]
+shape = SubResource( 2 )
+
+[node name="Health" parent="." index="4" instance=ExtResource( 1 )]
+scale = Vector2( 0.0911726, 0.0911726 )
+[connection signal="area_entered" from="ExitA/RoomADetector" to="." method="_on_RoomADetector_area_entered"]
+[connection signal="area_exited" from="ExitA/RoomADetector" to="." method="_on_RoomADetector_area_exited"]
+[connection signal="area_entered" from="ExitB/RoomBDetector" to="." method="_on_RoomBDetector_area_entered"]
+[connection signal="area_exited" from="ExitB/RoomBDetector" to="." method="_on_RoomBDetector_area_exited"]

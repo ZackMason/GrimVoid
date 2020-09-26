@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Game/RigidRoom.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Engine.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Generator.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Heater.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Door.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Oxygenerater.tscn" type="PackedScene" id=9]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Room" parent="." instance=ExtResource( 3 )]
+position = Vector2( -103.591, 2.22525 )
+
+[node name="Generator" parent="Room" instance=ExtResource( 5 )]
+position = Vector2( -19.0553, -19.7636 )
+scale = Vector2( 0.340562, 0.340562 )
+powered_on = true
+
+[node name="Oxygenerater" parent="Room/Generator" instance=ExtResource( 9 )]
+position = Vector2( 59.9921, -7.62939e-06 )
+powered_on = true
+
+[node name="Heater" parent="Room/Generator" instance=ExtResource( 7 )]
+position = Vector2( 27.9921, -3.8147e-06 )
+powered_on = true
+
+[node name="Engine" parent="Room" instance=ExtResource( 4 )]
+position = Vector2( -0.496696, 39.5259 )
+
+[node name="Room2" parent="." instance=ExtResource( 3 )]
+position = Vector2( -32.8763, 1.10278 )
+
+[node name="Door" parent="." instance=ExtResource( 8 )]
+position = Vector2( -67.8347, 1.61472 )
+rotation = -1.57079

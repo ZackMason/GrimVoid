@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Guy.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/guy_001.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/InteractableArea.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/light.png" type="Texture" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 2.44594
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 4.59704
+
+[sub_resource type="Animation" id=3]
+resource_name = "walk"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -15.0, 0.0, 15.0, 0.0 ]
+}
+
+[node name="Guy" type="KinematicBody2D"]
+z_index = 10
+collision_layer = 2
+collision_mask = 4
+script = ExtResource( 1 )
+
+[node name="HandPivot" type="Node2D" parent="."]
+
+[node name="Hands" type="Node2D" parent="HandPivot"]
+position = Vector2( 0, -6.98466 )
+rotation = -1.57079
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -0.749153 )
+scale = Vector2( 0.147062, 0.147062 )
+texture = ExtResource( 2 )
+
+[node name="GuyCollider" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="InteractableArea" type="Area2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+shape = SubResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+scale = Vector2( 0.377779, 0.377779 )
+texture = ExtResource( 4 )
+range_item_cull_mask = 7
+shadow_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/walk = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="area_entered" from="InteractableArea" to="InteractableArea" method="_on_InteractableArea_area_entered"]
+[connection signal="area_exited" from="InteractableArea" to="InteractableArea" method="_on_InteractableArea_area_exited"]
