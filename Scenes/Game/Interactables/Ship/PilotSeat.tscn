@@ -17,7 +17,6 @@ texture = ExtResource( 4 )
 
 [node name="Health" parent="." index="2" instance=ExtResource( 1 )]
 position = Vector2( 0, 21.3875 )
-scale = Vector2( 0.198209, 0.198209 )
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="." index="3"]
 occluder = SubResource( 1 )

@@ -6,7 +6,7 @@ extends Interactable
 
 export var power_drain_rate := 2.0
 export var temp_exhaust_rate := 5.0
-export var engine_thrust := 80.0
+export var engine_thrust := 680.0
 
 var time = 15.0
 ##############################################################
@@ -20,10 +20,10 @@ func power(state):
 		return
 	$engine_001/flame_001.visible = state
 	
-func alt_interact(node):
+func alt_interact(_node):
 	power(not $engine_001/flame_001.visible)
 	
-func interact(node):
+func interact(_node):
 	if randf() < 0.5:
 		$Health.damage(-10)
 
@@ -37,12 +37,21 @@ func _process(delta):
 			_room.temp += temp_exhaust_rate # discharge heat into the room
 			power(false)
 			return
-		if _room.is_in_group("rigid"):
-			var r := _room as RigidBody2D
-			r.add_force(r.to_local(global_position), delta*engine_thrust*Vector2.UP.rotated(global_rotation))
-		else:
-#			_ship.velocity.y += -delta * engine_thrust
-			pass
+			
+		var rooms = _room.all_nodes_in_group("rigid")
+		for r in rooms:
+			var v = delta * engine_thrust/rooms.size() as float * Vector2.UP.rotated(global_rotation)
+#			r.add_force(to_local(global_position), v)
+			r.add_force(Vector2.ZERO, v)
+			
+		
+#		if _room.is_in_group("rigid"):
+#			var r := _room as RigidBody2D
+		
+#		else:
+##			_ship.velocity.y += -delta * engine_thrust
+#			pass
+			
 		time -= delta
 		if time <= 0.0:
 			time = 15.0

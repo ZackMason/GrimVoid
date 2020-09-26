@@ -5,17 +5,33 @@ class_name Guy
 var velocity := Vector2.ZERO
 var move_speed := 5.0
 onready var last_position := global_position
+var _room = null setget set_room
+
+func set_room(room):
+	if room == null:
+		var gt = global_transform
+		var w = get_tree().get_nodes_in_group("world")[0]
+		get_parent().call("remove_child", self)
+		w.get_parent().call("add_child", self)
+		set_deferred("global_transform", gt)
+	_room = room
+
 ##############################################################
+
 func _ready():
 	pass
 
-func _unhandled_input(event):
+func _input(_event):
 	if not DevConsole.get_node("CanvasLayer/Base/Slider/DevConsole").closed: 
 		return
 	
 	if Input.is_action_just_pressed("fire"):
-		if $HandPivot/Hands.get_child_count() > 0:
+		if is_holding():
 			$HandPivot/Hands.get_child(0).interact(self)
+	elif Input.is_action_just_pressed("alt_fire"):
+		if is_holding():
+			$HandPivot/Hands.get_child(0).alt_interact(self)
+			
 	elif Input.is_action_just_pressed("interact"):
 		if not $InteractableArea.nearby_interactables.empty():
 			$InteractableArea.nearby_interactables[0].interact(self);
@@ -27,17 +43,23 @@ func _unhandled_input(event):
 		else:
 			print("nothing to interact with...")
 
-func _process(dt):
+func is_holding():
+	return $HandPivot/Hands.get_child_count() > 0
+	
+func _process(_dt):
+	if is_holding():
+		var held_item = $HandPivot/Hands.get_child(0)
+		if held_item:
+			held_item.transform = Transform2D.IDENTITY
+	
 	var mp = to_local(get_global_mouse_position()).normalized()
 	$HandPivot.rotation = atan2(mp.y, mp.x) + PI*0.5
 	
+	
 	if abs($HandPivot.rotation) > PI/4.0:
-		global_rotation = lerp_angle(global_rotation, $HandPivot.global_rotation, dt)
+#		global_rotation = lerp_angle(global_rotation, $HandPivot.global_rotation, dt)
 		pass
-#	$Tween.interpolate_property(self, "global_rotation", global_rotation, \
-#		$HandPivot.global_rotation,0.3,Tween.TRANS_EXPO,Tween.EASE_OUT_IN)
-#	$Tween.start()
-
+	
 func _physics_process(delta):
 	var input := Vector2.ZERO
 	if DevConsole.get_node("CanvasLayer/Base/Slider/DevConsole").closed: 
@@ -54,7 +76,14 @@ func _physics_process(delta):
 	
 	velocity = velocity.linear_interpolate(Vector2.ZERO, 1.0 - pow(0.00125, delta))
 	
-	velocity = move_and_slide(velocity)
+	velocity = move_and_slide(velocity, Vector2.ZERO,
+					false, 4, PI/4, false)
+					
+#	for index in get_slide_count():
+#		var collision = get_slide_collision(index)
+#		if collision.collider is RigidBody2D:
+#			collision.collider.apply_central_impulse(-collision.normal * 100)
+#
 ##############################################################
 
 func pick_up(node):
@@ -66,11 +95,25 @@ func pick_up(node):
 	node.rotation = 0.0
 
 ##############################################################
+func _on_RoomArea_area_entered(area):
+	if not _room and area.is_in_group("room"): 
+		print("entered room")
+		_room = area.get_room()
+		
+		if get_parent() != _room:
+			print("set room: %s" % _room.name)
+			var gt = global_transform
+			get_parent().call_deferred("remove_child", self)
+			_room.call_deferred("add_child", self)
+			set_deferred("global_transform", gt)
 
-
-
-
-
-
-
-
+func _on_RoomArea_area_exited(area):
+	var b = [area.is_in_group("room")]
+	b.append(_room == area.get_room() if b[0] else false)
+	if not false in b:
+		print("left room")
+#		var gt = global_transform
+#		_room.call_deferred("remove_child", self)
+#		_room.get_parent().call_deferred("add_child", self)
+#		set_deferred("global_transform", gt)
+		_room = null

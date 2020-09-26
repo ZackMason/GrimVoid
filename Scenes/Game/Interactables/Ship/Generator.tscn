@@ -5,9 +5,12 @@
 [ext_resource path="res://Sprites/generator_001.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 13.25, 12.25 )
+extents = Vector2( 9.75, 8 )
 
-[node name="Generator" instance=ExtResource( 1 )]
+[node name="Generator" groups=[
+"interactable",
+] instance=ExtResource( 1 )]
+collision_layer = 5
 collision_mask = 8
 script = ExtResource( 2 )
 powered_on = false
@@ -20,5 +23,8 @@ position = Vector2( 0, 0 )
 scale = Vector2( 0.549436, 0.549436 )
 texture = ExtResource( 3 )
 
-[node name="Health" parent="." index="2"]
-position = Vector2( 0, -13.125 )
+[node name="Health" parent="." index="5"]
+position = Vector2( 0, -14.75 )
+scale = Vector2( 2.08225, 2.08225 )
+[connection signal="area_entered" from="RoomArea" to="." method="_on_RoomArea_area_entered"]
+[connection signal="area_exited" from="RoomArea" to="." method="_on_RoomArea_area_exited"]

@@ -2,10 +2,10 @@
 
 [ext_resource path="res://Sprites/wall_001.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/floor_001.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Game/Components/Temp.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Game/Components/Power.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Game/Components/Oxygen.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Game/Components/Health.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Game/Components/PowerComponent.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Game/Components/OxygenComponent.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Game/Components/HeatComponent.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Game/Components/HealthComponent.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Game/RoomArea.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/Game/RigidRoom.gd" type="Script" id=8]
 
@@ -22,6 +22,8 @@ polygon = PoolVector2Array( 28, 28, -28, 28, -28, -28, 28, -28 )
 "rigid",
 ]]
 gravity_scale = 0.0
+linear_damp = 100.0
+angular_damp = 100.0
 script = ExtResource( 8 )
 
 [node name="Floor" type="Sprite" parent="."]
@@ -52,7 +54,7 @@ shape = SubResource( 1 )
 [node name="RoomArea" type="Area2D" parent="." groups=[
 "room",
 ]]
-collision_layer = 8
+collision_layer = 2147483656
 collision_mask = 2147483656
 script = ExtResource( 7 )
 
@@ -60,21 +62,17 @@ script = ExtResource( 7 )
 rotation = -1.57079
 shape = SubResource( 2 )
 
-[node name="Health" parent="." instance=ExtResource( 6 )]
-position = Vector2( 17.746, 18.5747 )
-scale = Vector2( 0.0940256, 0.0940256 )
-
-[node name="Power" parent="." instance=ExtResource( 4 )]
-position = Vector2( 17.746, 21.4962 )
-scale = Vector2( 0.0940256, 0.0940256 )
-
-[node name="Temp" parent="." instance=ExtResource( 3 )]
-position = Vector2( 17.746, 22.9451 )
-scale = Vector2( 0.0940256, 0.0940256 )
-
-[node name="Oxygen" parent="." instance=ExtResource( 5 )]
-position = Vector2( 17.746, 20 )
-scale = Vector2( 0.0940256, 0.0940256 )
-
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource( 3 )
+
+[node name="Heat" parent="." instance=ExtResource( 5 )]
+position = Vector2( 22, 22 )
+
+[node name="Health" parent="." instance=ExtResource( 6 )]
+position = Vector2( 18, 18 )
+
+[node name="Oxygen" parent="." instance=ExtResource( 4 )]
+position = Vector2( 22, 18 )
+
+[node name="Power" parent="." instance=ExtResource( 3 )]
+position = Vector2( 18, 22 )

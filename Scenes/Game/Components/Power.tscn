@@ -6,7 +6,7 @@
 [sub_resource type="ViewportTexture" id=1]
 viewport_path = NodePath("Viewport")
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.890196, 0.878431, 0.0313726, 1 )
 
 [node name="Power" instance=ExtResource( 1 )]
@@ -15,5 +15,11 @@ script = ExtResource( 2 )
 [node name="Sprite" parent="." index="0"]
 texture = SubResource( 1 )
 
+[node name="RadialProgressBar" parent="Viewport" index="0"]
+radius = 44
+value = 100
+border_thickness = 6
+bar_color = Color( 0.929412, 0.956863, 0.0352941, 1 )
+
 [node name="ProgressBar" parent="Viewport/Control" index="0"]
-custom_styles/fg = SubResource( 2 )
+custom_styles/fg = SubResource( 3 )

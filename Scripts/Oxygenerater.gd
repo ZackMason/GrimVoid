@@ -4,13 +4,13 @@ export var powered_on := false
 export var fill_rate := 8.0
 
 ##############################################################
-func interact(node):
+func interact(_node):
 	powered_on = not powered_on
 	if not _room:
 		print("this generator in not in a room")
 	print("oxygenerator is %s" % ("on" if powered_on else "off"))
 	
-func alt_interact(node):
+func alt_interact(_node):
 	$Health.damage(-10.0)
 ##############################################################
 func _process(delta):
@@ -18,7 +18,7 @@ func _process(delta):
 		return
 	if _room.power <= 0.0 and powered_on:
 		powered_on = false
-	elif _room.oxygen < 100.50 and powered_on and $Health.health > 10.0:
+	elif _room.oxygen < 100.50 and powered_on and $Health.value > 10.0:
 		_room.oxygen += fill_rate * delta
 		_room.power -= delta
 

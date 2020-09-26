@@ -1,12 +1,13 @@
 extends Area2D
 class_name Interactable
 
-var _room
+var _room = null
+var disable_room_ownership = false
 
-func interact(node):
+func interact(_node):
 	print("no interaction")
 	
-func alt_interact(node):
+func alt_interact(_node):
 	print("no alternate interaction")
 	
 func text():
@@ -22,7 +23,19 @@ func _ready():
 #		print("Clicked")
 #		return(self) # returns a reference to this node
 
-
 func _on_RoomArea_area_entered(area):
 	if area.is_in_group("room") and not _room:
 		_room = area.get_room()
+		print("adding %s" % name)
+		if not disable_room_ownership and get_parent() != _room:
+			var gt = get_global_transform()
+			get_parent().call_deferred("remove_child" , self)
+			_room.call_deferred("add_child", self)
+			set_deferred("global_transform", gt)
+
+
+func _on_RoomArea_area_exited(area):
+	if area.is_in_group("room") and _room == area.get_room():
+		_room = null
+
+

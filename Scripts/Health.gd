@@ -19,17 +19,23 @@ func set_health(hp):
 	health = hp
 	_pb.value = health
 
-onready var _pb = $Viewport/Control/ProgressBar
+onready var _pb = $Viewport/RadialProgressBar
+
+func _process(_delta):
+#	$HealthBar.global_rotation = 0.0
+	pass
 
 func _ready():
 	get_parent().add_to_group("health")
 	set_max_health(max_health)
 	set_health(health)
-	$HealthBar.texture = $Viewport.get_texture()
+	$Sprite.texture = $Viewport.get_texture()
 
 func damage(amount: float) -> bool:
 	set_health(health - amount)
 	if health <= 0:
+		if get_parent().is_in_group("rigid"):
+			get_parent().unparent_room_contents()
 		get_parent().queue_free()
 		
 	return health <= 0

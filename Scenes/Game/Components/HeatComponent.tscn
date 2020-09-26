@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Game/Components/Component.tscn" type="PackedScene" id=1]
+
+[node name="Heat" instance=ExtResource( 1 )]
+component_name = "heat"
+component_color = Color( 0.00784314, 0.419608, 0.0313726, 1 )

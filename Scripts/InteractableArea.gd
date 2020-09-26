@@ -9,7 +9,5 @@ func _on_InteractableArea_area_entered(area):
 	print("added %s" % area.name)
 
 func _on_InteractableArea_area_exited(area):
-	var i = nearby_interactables.find(area)
-	if i >= 0:
-		nearby_interactables.remove(i)
-		print("removed %s" % area.name)
+	nearby_interactables.erase(area)
+	print("removed %s" % area.name)

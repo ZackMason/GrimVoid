@@ -62,7 +62,7 @@ func _input(event):
 
 func process_command(text: String) -> void:
 	var tokens := text.split(" ") as Array
-	for i in range(0, tokens.count("")):
+	for _i in range(0, tokens.count("")):
 		tokens.erase("")
 		
 	if tokens.size() == 0:

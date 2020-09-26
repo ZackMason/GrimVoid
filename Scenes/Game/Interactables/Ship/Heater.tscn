@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/Heater.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Game/Interactables/Interactable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/heater_001.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Game/Components/Health.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Game/Components/HealthComponent.tscn" type="PackedScene" id=4]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( -13.875, -8.25, -14, 5, 13.75, 7, 14.5, -7.75 )
@@ -12,17 +12,18 @@ polygon = PoolVector2Array( -13.875, -8.25, -14, 5, 13.75, 7, 14.5, -7.75 )
 script = ExtResource( 1 )
 
 [node name="heater_001" type="Sprite" parent="." index="1"]
+scale = Vector2( 0.549, 0.549 )
 texture = ExtResource( 3 )
 
-[node name="Health" parent="." index="2" instance=ExtResource( 4 )]
-position = Vector2( 0, -16.375 )
-scale = Vector2( 0.236654, 0.236654 )
-
-[node name="Timer" type="Timer" parent="." index="3"]
+[node name="Timer" type="Timer" parent="." index="2"]
 wait_time = 15.0
 autostart = true
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="4"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="3"]
 visible = false
 occluder = SubResource( 1 )
+
+[node name="Health" parent="." index="5" instance=ExtResource( 4 )]
+position = Vector2( 0, -12.314 )
+scale = Vector2( 2.082, 2.082 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

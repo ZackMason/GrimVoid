@@ -4,18 +4,18 @@ export var powered_on := false
 export var fill_rate := 8.0
 ##############################################################
 
-func interact(node):
+func interact(_node):
 	powered_on = not powered_on
 	print("heater is %s" % ("on" if powered_on else "off"))
 
-func alt_interact(node):
+func alt_interact(_node):
 	$Health.damage(-10.0)
 
 ##############################################################
 
 func _process(delta):
 	if not _room: return
-	if _room.temp < 75.50 and powered_on and $Health.health > 10.0 and _room.power > 10.0:
+	if _room.temp < 75.50 and powered_on and $Health.value > 10.0 and _room.power > 10.0:
 		_room.temp += fill_rate * delta
 		_room.power -= delta
 

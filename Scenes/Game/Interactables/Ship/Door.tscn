@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scenes/Game/Components/Health.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game/Components/HealthComponent.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Game/Interactables/Interactable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/DoorInteractable.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/door_001.png" type="Texture" id=4]
@@ -42,8 +42,16 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitB/RoomBDetector" index="0"]
 shape = SubResource( 2 )
 
-[node name="Health" parent="." index="4" instance=ExtResource( 1 )]
-scale = Vector2( 0.0911726, 0.0911726 )
+[node name="Connection" type="PinJoint2D" parent="." index="5"]
+disable_collision = false
+
+[node name="Connection3" type="DampedSpringJoint2D" parent="." index="6"]
+position = Vector2( 0, -25 )
+disable_collision = false
+rest_length = 50.0
+stiffness = 64.0
+
+[node name="Health" parent="." index="7" instance=ExtResource( 1 )]
 [connection signal="area_entered" from="ExitA/RoomADetector" to="." method="_on_RoomADetector_area_entered"]
 [connection signal="area_exited" from="ExitA/RoomADetector" to="." method="_on_RoomADetector_area_exited"]
 [connection signal="area_entered" from="ExitB/RoomBDetector" to="." method="_on_RoomBDetector_area_entered"]

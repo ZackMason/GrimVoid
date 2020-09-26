@@ -25,9 +25,23 @@ func arg_enum_to_string(arg):
 var commands = [
 	["help", [ARG_STRING], "command(opt) - lists available commands or a commands description"],
 	["rand", [], "prints a random number between 0-9"],
+	["ship_rooms", [], "prints ship rooms"],
+	["select_group", [ARG_STRING], "prints all nodes in a group that are on a ship"],
 	["repair_all", [], "heals everything to full health"],
 	["energize", [], "restores everything to full power"],
 ]
+
+func select_group(group):
+	var guy = get_tree().get_nodes_in_group("guy")[0]
+	var nodes = guy._room.all_nodes_in_group(group)
+	for n in nodes:
+		console.output_text("%s" % n.name)
+	
+func ship_rooms():
+	var guy = get_tree().get_nodes_in_group("guy")[0]
+	guy._room.print_all_rooms()
+	
+	
 
 func energize():
 	for power in get_tree().get_nodes_in_group("power"):
