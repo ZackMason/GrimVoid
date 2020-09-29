@@ -16,6 +16,3 @@ texture = ExtResource( 3 )
 
 [node name="LightOccluder2D" parent="." index="3"]
 occluder = SubResource( 1 )
-
-[node name="Health" parent="." index="5"]
-position = Vector2( 0, -12.314 )

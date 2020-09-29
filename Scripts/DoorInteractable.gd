@@ -1,10 +1,15 @@
 extends Interactable
 ##############################################################
+signal connection_changed
+
 var room_a = null
 var room_b = null
 
+var disabled = false
+
 export var sealed = false setget set_sealed
 export var seal_breaks = false
+
 
 func set_sealed(x):
 	sealed = x
@@ -20,6 +25,7 @@ export var power_flow_rate = 6.0
 func _ready():
 	._ready()
 	$door_001.visible = not sealed
+	connect("connection_changed", RoomConnections, "reparent")
 
 func _notification(what):
 	if what == NOTIFICATION_PREDELETE:
@@ -27,16 +33,16 @@ func _notification(what):
 			disconnect_rooms()
 
 func _process(delta):
-	if not joint:
-		joint = joint_dup.duplicate()
-		add_child(joint)
-		connected = false
+#	if not joint:
+#		joint = joint_dup.duplicate()
+#		add_child(joint)
+#		connected = false
 	if not room_b and connected:
 		connected = false
-		room_a.remove_child(joint)
-		add_child(joint)
-		joint.node_a = ""
-		joint.node_b = ""
+#		room_a.remove_child(joint)
+#		add_child(joint)
+#		joint.node_a = ""
+#		joint.node_b = ""
 		
 	if sealed: return 
 	if not room_a:
@@ -63,7 +69,8 @@ func _process(delta):
 	if room_b.temp != room_a.temp:
 		room_b.temp += temp_flow_rate * delta * t_parity
 		room_a.temp -= temp_flow_rate * delta * t_parity
-		
+	
+	return
 	var e_parity = 1.0
 	if room_b.power > room_a.power:
 		e_parity = -1.0
@@ -76,6 +83,7 @@ func alt_interact(_node):
 	set_sealed(not sealed)
 	$door_001.visible = not sealed
 
+## bug here somewhere
 func interact(node):
 	if sealed:
 		print("the door is sealed")
@@ -95,51 +103,55 @@ onready var joint = $Connection
 onready var joint_dup = joint.duplicate()
 
 func disconnect_rooms():
+	if disabled: return
 	assert(connected)
 	print("disconnecting %s" % name)
-	var gt = joint.global_transform
-	room_a.remove_child(joint)
-	add_child(joint)
-	joint.global_transform = gt
-	joint.node_a = ""
-	joint.node_b = ""
-	
+
+	disabled = true
 	room_a.remove_neighbor_room(room_b)
 	room_b.remove_neighbor_room(room_a)
+	disabled = false
 	
 	connected = false
 	
 func connect_rooms():
+	if disabled: return
 	assert(not connected)
-	print("connected rooms")
-	var gt = joint.global_transform
-	remove_child(joint)
-	room_a.add_child(joint)
-	joint.node_a = room_a.get_path()
-	joint.node_b = room_b.get_path()
-	joint.global_transform = gt
-	room_a.add_neighbor_room(room_b)
+	print("connecting %s" % name)
+
+	disabled = true
 	room_b.add_neighbor_room(room_a)
+	room_a.add_neighbor_room(room_b)
+	disabled = false
 	connected = true
+#	emit_signal("connection_changed")
 	
 func _on_RoomADetector_area_entered(area):
+	if disabled: return
 	if area.is_in_group("room") and not room_a:
 		room_a = area.get_room()
-		if room_b and not sealed:
+		room_a.connected_doors.append(self)
+		if room_b and not sealed and not connected:
 			 connect_rooms()
 			
 func _on_RoomBDetector_area_entered(area):
+	if disabled: return
 	if area.is_in_group("room") and not room_b:
 		room_b = area.get_room()
-		if room_a and not sealed:
+		room_b.connected_doors.append(self)
+		if room_a and not sealed and not connected:
 			 connect_rooms()
 			
 func _on_RoomBDetector_area_exited(area):
-	if area.is_in_group("room") and area.get_room() == room_b:
+	if disabled: return
+	if area.is_in_group("room") and area.get_room() == room_b and area.is_inside_tree():
+		room_b.connected_doors.erase(self)
 		if connected: disconnect_rooms()
 		room_b = null
 		
 func _on_RoomADetector_area_exited(area):
-	if area.is_in_group("room") and area.get_room() == room_a:
+	if disabled: return
+	if area.is_in_group("room") and area.get_room() == room_a and area.is_inside_tree():
+		room_a.connected_doors.erase(self)
 		if connected: disconnect_rooms()
 		room_a = null

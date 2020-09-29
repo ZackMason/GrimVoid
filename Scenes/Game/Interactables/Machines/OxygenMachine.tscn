@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/oxygen_001.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Game/Interactables/Machine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/OxygenMachine.gd" type="Script" id=3]
+
+[node name="OxygenMachine" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
+[node name="Power" parent="." index="3"]
+start_value = 100
+
+[node name="oxygen_001" type="Sprite" parent="." index="4"]
+position = Vector2( -0.125305, 2.31192 )
+scale = Vector2( 0.31595, 0.31595 )
+texture = ExtResource( 1 )

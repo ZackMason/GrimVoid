@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://Sprites/radial_back.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Game/Components/Component.gd" type="Script" id=2]
-[ext_resource path="res://addons/radial_progress/RadialProgressBar.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/radial_bar.png" type="Texture" id=3]
 [ext_resource path="res://Font/FFFFORWA.TTF" type="DynamicFontData" id=4]
 
 [sub_resource type="DynamicFont" id=2]
@@ -11,48 +12,47 @@ font_data = ExtResource( 4 )
 script = ExtResource( 2 )
 
 [node name="Icon" type="ColorRect" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -2.02769
-margin_top = -1.97926
-margin_right = 37.9723
-margin_bottom = 38.0207
-rect_scale = Vector2( 0.0997679, 0.099522 )
+margin_left = -32.0
+margin_top = -32.0
+margin_right = -31.0
+margin_bottom = -31.0
+rect_scale = Vector2( 64.7045, 64.8441 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.0402845, 0.0402845 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Sprite"]
+position = Vector2( 0, 0.25 )
+scale = Vector2( 3.18165, 3.18165 )
 
 [node name="Viewport" type="Viewport" parent="."]
-size = Vector2( 100, 100 )
+size = Vector2( 64, 64 )
+own_world = true
 transparent_bg = true
 disable_3d = true
 usage = 0
 render_target_v_flip = true
 
-[node name="RadialProgressBar" type="Control" parent="Viewport"]
-margin_left = 50.0
-margin_top = 50.0
-margin_right = 90.5679
-margin_bottom = 92.0662
-script = ExtResource( 3 )
+[node name="RadialProgressBar" type="TextureProgress" parent="Viewport"]
+margin_right = 64.0
+margin_bottom = 64.0
+value = 75.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 3 )
+fill_mode = 4
+tint_progress = Color( 1, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-radius = 44
-value = 102
-bg_color = Color( 0.839216, 0.839216, 0.839216, 1 )
-bar_color = Color( 0.988235, 0.0352941, 0.0352941, 1 )
-border_color = Color( 0, 0, 0, 1 )
 
 [node name="Label" type="Label" parent="Viewport/RadialProgressBar"]
-margin_left = -24.5305
-margin_top = -6.42979
-margin_right = 15.4695
-margin_bottom = 15.5702
-rect_scale = Vector2( 1.07298, 1.07298 )
+margin_left = 24.8021
+margin_top = 34.56
+margin_right = 64.8021
+margin_bottom = 56.56
+rect_scale = Vector2( 0.443328, 0.443328 )
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "99"
@@ -60,3 +60,5 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="screen_entered" from="Sprite/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="Sprite/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

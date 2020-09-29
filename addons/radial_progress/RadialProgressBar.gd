@@ -34,6 +34,7 @@ func set_colors(bg,bar):
 	update();
 
 func _draw():
+	
 	draw_circle_arc(Vector2(0,0),radius + border_thickness, 0, 360, border_color);
 	draw_circle_arc(Vector2(0,0),radius,0,360,bg_color);
 	angle = value*360/max_value;

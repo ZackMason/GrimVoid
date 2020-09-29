@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Sprites/heater_001.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Game/Interactables/Machine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/HeatRegulator.gd" type="Script" id=3]
+
+[node name="Heater" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+disable_room_ownership = false
+
+[node name="heater_001" type="Sprite" parent="." index="4"]
+position = Vector2( -0.0308914, -0.0875072 )
+scale = Vector2( 0.240006, 0.240006 )
+texture = ExtResource( 1 )

@@ -5,20 +5,23 @@ export(NodePath) var follow_ship
 onready var follow_node = get_node(follow)
 onready var ship_follow_node = get_node(follow_ship)
 
+var need_to_zoom = false
+
 func _process(delta):
 	if follow_node and follow_node.is_inside_tree():
 		global_rotation = follow_node.global_rotation
-#		$Tween.interpolate_property(self, "rotation", rotation, follow_node.global_rotation, 1.0, Tween.TRANS_EXPO, Tween.EASE_OUT)
-#		$Tween.start()
-#		global_position = global_position.linear_interpolate(follow_node.global_position, 3.995 * delta)
 		global_position = follow_node.global_position
-	elif ship_follow_node and ship_follow_node.is_inside_tree():
-		global_rotation = ship_follow_node.global_rotation
-#		$Tween.interpolate_property(self, "rotation", rotation, ship_follow_node.global_rotation, 1.0, Tween.TRANS_EXPO, Tween.EASE_OUT)
-#		$Tween.start()
-		global_position = global_position.linear_interpolate(ship_follow_node.global_position, 1.995 * delta)
+		if need_to_zoom:
+			zoom = Vector2(0.2,0.2)
+			need_to_zoom = false
+	else:
+		need_to_zoom = true
+		
+		global_position = global_position.linear_interpolate(follow_node._room.global_position, 1.995 * delta)
+		global_rotation = follow_node._room.global_rotation
 
-func _input(event):
+
+func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == BUTTON_WHEEL_UP:

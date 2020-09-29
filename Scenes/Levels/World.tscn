@@ -1,90 +1,20 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Game/sun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Game/Planet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Levels/Camera2D.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/SpaceCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Game/Interactables/Items/Item.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Game/Guy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Sprites/light.png" type="Texture" id=6]
-[ext_resource path="res://Scenes/Levels/Space.gd" type="Script" id=7]
-[ext_resource path="res://Materials/space_shader.tres" type="Shader" id=8]
-[ext_resource path="res://Scenes/Levels/test.tscn" type="PackedScene" id=14]
-
-[sub_resource type="OpenSimplexNoise" id=1]
-seed = 1
-octaves = 6
-period = 254.1
-persistence = 0.678
-lacunarity = 2.5
-
-[sub_resource type="NoiseTexture" id=2]
-seamless = true
-noise = SubResource( 1 )
-
-[sub_resource type="OpenSimplexNoise" id=3]
-period = 166.4
-persistence = 0.629
-lacunarity = 3.06
-
-[sub_resource type="NoiseTexture" id=4]
-seamless = true
-noise = SubResource( 3 )
-
-[sub_resource type="OpenSimplexNoise" id=5]
-
-[sub_resource type="NoiseTexture" id=6]
-seamless = true
-noise = SubResource( 5 )
-
-[sub_resource type="ShaderMaterial" id=10]
-shader = ExtResource( 8 )
-shader_param/global_transform = Transform2D( 24.606, 0, 0, 24, -261.044, 243.994 )
-shader_param/camera_position = Vector2( -304.781, 234.935 )
-shader_param/c1 = Color( 0.956863, 0.027451, 0.027451, 1 )
-shader_param/c2 = Color( 0.0705882, 0.494118, 0.941176, 1 )
-shader_param/c3 = Color( 0.4, 0.498039, 0.14902, 1 )
-shader_param/n1 = SubResource( 2 )
-shader_param/n2 = SubResource( 4 )
-shader_param/n3 = SubResource( 6 )
-
-[sub_resource type="OpenSimplexNoise" id=8]
-
-[sub_resource type="NoiseTexture" id=9]
-noise = SubResource( 8 )
+[ext_resource path="res://Scenes/Ships/ship_001.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Ships/Destroyer.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Ships/Monster.tscn" type="PackedScene" id=12]
 
 [node name="World" type="Node2D" groups=[
 "world",
 ]]
+position = Vector2( 0.946014, -1.36646 )
 
-[node name="Camera2D" type="Camera2D" parent="." groups=[
-"camera",
-]]
-position = Vector2( -304.781, 234.935 )
-rotating = true
-current = true
-zoom = Vector2( 0.2, 0.2 )
-script = ExtResource( 3 )
-follow = NodePath("../Guy")
-follow_ship = NodePath("../Node2D/PilotSeat")
-
-[node name="Light2D" type="Light2D" parent="Camera2D" groups=[
-"darkness",
-]]
-visible = false
-scale = Vector2( 42.25, 42.25 )
-texture = ExtResource( 6 )
-color = Color( 0, 0, 0, 1 )
-mode = 3
-
-[node name="Tween" type="Tween" parent="Camera2D"]
-
-[node name="Node2D" type="Node2D" parent="Camera2D"]
-
-[node name="Sprite" type="Sprite" parent="Camera2D/Node2D"]
-material = SubResource( 10 )
-position = Vector2( 43.7373, 9.05945 )
-scale = Vector2( 24.606, 24 )
-texture = SubResource( 9 )
-script = ExtResource( 7 )
+[node name="Camera2D" parent="." instance=ExtResource( 3 )]
 
 [node name="Sun" parent="." instance=ExtResource( 1 )]
 
@@ -92,36 +22,43 @@ script = ExtResource( 7 )
 position = Vector2( -344.729, 0.81601 )
 
 [node name="Guy" parent="." instance=ExtResource( 5 )]
-position = Vector2( -535.519, -215.507 )
+position = Vector2( -900.737, -770.407 )
 z_index = 2
 
-[node name="Node2D" parent="." instance=ExtResource( 14 )]
-position = Vector2( -441.645, -213.154 )
+[node name="Item2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -821.258, -319.089 )
+item_name = "airpack"
 
-[node name="Heater" parent="Node2D/Room/Generator" index="7"]
-collision_layer = 1
-collision_mask = 1
+[node name="Item3" parent="." instance=ExtResource( 4 )]
+position = Vector2( -829.721, -319.361 )
+item_name = "spacesuit"
 
-[node name="Engine" parent="Node2D/Room" index="14"]
-collision_layer = 1
-collision_mask = 1
+[node name="Item4" parent="." instance=ExtResource( 4 )]
+position = Vector2( -829.45, -311.921 )
+item_name = "spacelegs"
 
-[node name="Engine2" parent="Node2D/Room" index="15"]
-collision_layer = 1
-collision_mask = 1
+[node name="Item6" parent="." instance=ExtResource( 4 )]
+position = Vector2( -829.871, -326.372 )
 
-[node name="Door" parent="Node2D" index="3"]
-collision_layer = 1
-collision_mask = 1
+[node name="Item5" parent="." instance=ExtResource( 4 )]
+position = Vector2( -687.074, -303.338 )
+item_name = "heater"
 
-[node name="Door2" parent="Node2D" index="4"]
-position = Vector2( -79.9577, -29.9773 )
-scale = Vector2( 1, 1.30785 )
-collision_layer = 1
-collision_mask = 1
+[node name="Ship" parent="." instance=ExtResource( 9 )]
+position = Vector2( -757.257, -312.494 )
 
-[node name="PilotSeat" parent="Node2D" index="5"]
-collision_layer = 1
-collision_mask = 1
+[node name="Ship2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 46.1949, -639.179 )
+rotation = -2.00296
 
-[editable path="Node2D"]
+[node name="Destroyer" parent="." instance=ExtResource( 11 )]
+position = Vector2( -956.807, -740.186 )
+rotation = 0.984146
+
+[node name="Destroyer2" parent="." instance=ExtResource( 11 )]
+position = Vector2( -1278.68, -860.239 )
+rotation = -0.202728
+
+[node name="Monster" parent="." instance=ExtResource( 12 )]
+position = Vector2( -670.053, -986.988 )
+rotation = -0.722458

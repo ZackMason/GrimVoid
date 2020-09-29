@@ -6,18 +6,20 @@ export var component_color := Color(1.0,0.0,0.0)
 export var free_on_depleted := false
 
 export(int) var max_value = 100 setget set_max_value
-onready var value = max_value setget set_value
+export(int) var start_value = 0
+onready var value = min(max_value, start_value) setget set_value
 
 func set_max_value(val):
 	var value_difference = val - max_value
 	
-	if value_difference >= 0:
-		value += value_difference
-	else:
-		value = max(value, val)
+	if value:
+		if value_difference >= 0:
+			value += value_difference
+		else:
+			value = max(value, val)
 	
 	max_value = val
-	_pb.max_value = max_value
+	$Viewport/RadialProgressBar.max_value = max_value
 
 func set_value(val):
 	val = clamp(val, 0.0, _pb.max_value-0.01)
@@ -34,8 +36,15 @@ func _ready():
 	set_max_value(max_value)
 	set_value(value)
 	$Sprite.texture = $Viewport.get_texture()
-	_pb.bar_color = component_color
-	_pb.border_color = Color.black
+	_pb.tint_progress = component_color
+#	_pb.bar_color = component_color
+#	_pb.border_color = Color.black
+	
+func try_deplete(amount: float) -> bool:
+	if value >= amount:
+		set_value(value - amount)
+		return true
+	return false
 	
 func damage(amount: float) -> bool:
 	set_value(value - amount)
@@ -45,3 +54,10 @@ func damage(amount: float) -> bool:
 		get_parent().queue_free()
 
 	return value <= 0
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	$Viewport/RadialProgressBar.visible = true
+
+func _on_VisibilityNotifier2D_screen_exited():
+	$Viewport/RadialProgressBar.visible = false

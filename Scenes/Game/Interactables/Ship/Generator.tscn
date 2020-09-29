@@ -7,10 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 9.75, 8 )
 
-[node name="Generator" groups=[
-"interactable",
-] instance=ExtResource( 1 )]
-collision_layer = 5
+[node name="Generator" instance=ExtResource( 1 )]
 collision_mask = 8
 script = ExtResource( 2 )
 powered_on = false
@@ -24,7 +21,8 @@ scale = Vector2( 0.549436, 0.549436 )
 texture = ExtResource( 3 )
 
 [node name="Health" parent="." index="5"]
-position = Vector2( 0, -14.75 )
-scale = Vector2( 2.08225, 2.08225 )
-[connection signal="area_entered" from="RoomArea" to="." method="_on_RoomArea_area_entered"]
-[connection signal="area_exited" from="RoomArea" to="." method="_on_RoomArea_area_exited"]
+position = Vector2( 0, -12.18 )
+scale = Vector2( 0.0626242, 0.0626242 )
+
+[node name="Power" parent="." index="6"]
+position = Vector2( 0, 0 )

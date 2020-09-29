@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Guy.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/guy_001.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/InteractableArea.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/light.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Game/Inventory/Inventory.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.44594
@@ -74,6 +75,11 @@ shadow_enabled = true
 anims/walk = SubResource( 4 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource( 5 )]
+visible = false
 [connection signal="area_entered" from="InteractableArea" to="InteractableArea" method="_on_InteractableArea_area_entered"]
 [connection signal="area_exited" from="InteractableArea" to="InteractableArea" method="_on_InteractableArea_area_exited"]
 [connection signal="area_entered" from="RoomDetector" to="." method="_on_RoomArea_area_entered"]

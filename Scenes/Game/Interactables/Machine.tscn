@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Game/Interactables/Interactable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game/Interactables/Machine.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Game/Components/HealthComponent.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Game/Components/PowerComponent.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3.24589, 2.65123 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 3.33884
+
+[node name="Machine" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+disable_room_ownership = true
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="RoomArea" index="0"]
+shape = SubResource( 2 )
+
+[node name="Health" parent="." index="2" instance=ExtResource( 3 )]
+position = Vector2( -9.63259, -2.59555 )
+scale = Vector2( 0.082, 0.082 )
+
+[node name="Power" parent="." index="3" instance=ExtResource( 4 )]
+position = Vector2( -9.63051, 3.7278 )
+scale = Vector2( 0.0820503, 0.0820503 )

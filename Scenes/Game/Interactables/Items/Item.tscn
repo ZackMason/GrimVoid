@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Game/Interactables/Interactable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Item.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3.80776, 2.74487 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 3.47426
+
+[node name="Item" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+item_name = "spacehelm"
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="RoomArea" index="0"]
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="." index="2"]
+scale = Vector2( 0.23151, 0.23151 )

@@ -5,3 +5,5 @@
 [node name="Heat" instance=ExtResource( 1 )]
 component_name = "heat"
 component_color = Color( 0.00784314, 0.419608, 0.0313726, 1 )
+max_value = 150
+start_value = 70

@@ -1,0 +1,234 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Inventory.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/grid.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Game/Inventory/Equipment.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Game/Inventory/BackPack.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Game/Inventory/Close.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Game/Inventory/equipslot.gd" type="Script" id=6]
+
+[node name="Inventory" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InventoryBase" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -468.907
+margin_top = -252.0
+margin_right = -108.907
+margin_bottom = 252.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EquipLabel" type="Label" parent="InventoryBase"]
+margin_left = 71.2195
+margin_top = 46.1076
+margin_right = 140.22
+margin_bottom = 60.1076
+text = "Equipment"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InvLabel" type="Label" parent="InventoryBase"]
+margin_left = 11.5574
+margin_top = 10.286
+margin_right = 80.5574
+margin_bottom = 24.286
+text = "Inventory"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextEdit" type="TextEdit" parent="InventoryBase"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -54.3258
+margin_top = 7.00226
+margin_right = 80.6742
+margin_bottom = 29.0023
+text = "Name"
+draw_tabs = true
+draw_spaces = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Equipment" type="Panel" parent="."]
+self_modulate = Color( 0.109804, 0.109804, 0.109804, 1 )
+margin_left = -446.0
+margin_top = -187.621
+margin_right = -284.0
+margin_bottom = -32.6215
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="head" type="Panel" parent="Equipment"]
+margin_left = 60.0
+margin_top = 13.0
+margin_right = 100.0
+margin_bottom = 53.0
+script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="Equipment/head"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "head"
+align = 1
+
+[node name="chest" type="Panel" parent="Equipment"]
+margin_left = 60.0
+margin_top = 59.0
+margin_right = 100.0
+margin_bottom = 98.9998
+
+[node name="Label" type="Label" parent="Equipment/chest"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "chest"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="primary" type="Panel" parent="Equipment"]
+margin_left = 10.0
+margin_top = 59.0
+margin_right = 49.9997
+margin_bottom = 98.9997
+
+[node name="Label" type="Label" parent="Equipment/primary"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "main"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="legs" type="Panel" parent="Equipment"]
+margin_left = 60.0
+margin_top = 104.0
+margin_right = 99.9997
+margin_bottom = 144.0
+
+[node name="Label" type="Label" parent="Equipment/legs"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "legs"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="back" type="Panel" parent="Equipment"]
+margin_left = 110.0
+margin_top = 13.0
+margin_right = 150.0
+margin_bottom = 53.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Equipment/back"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "back"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="secondary" type="Panel" parent="Equipment"]
+margin_left = 110.0
+margin_top = 59.0
+margin_right = 150.0
+margin_bottom = 98.9997
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Equipment/secondary"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "off"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackPack" type="TextureRect" parent="."]
+self_modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
+margin_left = -447.189
+margin_top = 16.4054
+margin_right = -126.189
+margin_bottom = 240.405
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Close" type="MenuButton" parent="."]
+margin_left = -163.16
+margin_top = -244.425
+margin_right = -117.16
+margin_bottom = -224.425
+text = "close"
+flat = false
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="text_changed" from="InventoryBase/TextEdit" to="." method="_on_TextEdit_text_changed"]
+[connection signal="button_up" from="Close" to="Close" method="_on_Close_button_up"]

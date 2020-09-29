@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Game/Interactables/Ship/PilotSeat.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Game/Interactables/Weapons/Weapon.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Game/RigidRoom.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Game/Interactables/Ship/Engine.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Game/Interactables/Ship/Generator.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Turret.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Game/Interactables/Ship/Heater.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Game/Interactables/Ship/Door.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Game/Interactables/Ship/Oxygenerater.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Leak.tscn" type="PackedScene" id=10]
 
 [node name="Node2D" type="Node2D"]
 
@@ -22,12 +24,8 @@ position = Vector2( -19.0553, -19.7636 )
 scale = Vector2( 0.340562, 0.340562 )
 powered_on = true
 
-[node name="Oxygenerater" parent="Room/Generator" groups=[
-"interactable",
-] instance=ExtResource( 9 )]
+[node name="Oxygenerater" parent="Room/Generator" instance=ExtResource( 9 )]
 position = Vector2( 50.0799, -7.62939e-06 )
-collision_layer = 5
-collision_mask = 2147483653
 powered_on = true
 
 [node name="Heater" parent="Room/Generator" instance=ExtResource( 7 )]
@@ -44,27 +42,38 @@ position = Vector2( 67.0677, 39.5259 )
 [node name="Room2" parent="." instance=ExtResource( 3 )]
 position = Vector2( -33.6035, 2.22525 )
 
-[node name="Room3" parent="." instance=ExtResource( 3 )]
-position = Vector2( -57.3059, -62.945 )
-rotation = -1.57079
-
-[node name="Door2" parent="Room3" instance=ExtResource( 8 )]
-position = Vector2( -32.2366, 12.5889 )
-rotation = -1.57079
+[node name="Door3" parent="." instance=ExtResource( 8 )]
+position = Vector2( -44.7172, -30.7083 )
+rotation = -3.14158
 sealed = true
+seal_breaks = true
+
+[node name="Room3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 72.151, -130.036 )
+rotation = -1.57079
 
 [node name="Door" parent="." instance=ExtResource( 8 )]
-position = Vector2( -66.7097, 1.61472 )
+position = Vector2( -66.7097, 14.3139 )
 rotation = -1.57079
+sealed = true
 seal_breaks = true
 
 [node name="Door2" parent="." instance=ExtResource( 8 )]
-position = Vector2( -78.9597, -30.7603 )
-rotation = -2.61799
+position = Vector2( -4.15342, 0.590878 )
+rotation = -1.57079
+sealed = true
 seal_breaks = true
 
 [node name="PilotSeat" parent="." instance=ExtResource( 1 )]
-position = Vector2( -115.5, 1.5 )
+position = Vector2( -116.301, 18.7363 )
 scale = Vector2( 0.362128, 0.362128 )
 
-[editable path="Door"]
+[node name="Turret" parent="." instance=ExtResource( 6 )]
+position = Vector2( 42.4604, -112.399 )
+
+[node name="Turret2" parent="." instance=ExtResource( 6 )]
+position = Vector2( -123.126, -6.18146 )
+rotation = -1.57079
+
+[node name="Leak" parent="." instance=ExtResource( 10 )]
+position = Vector2( 83.998, -116.399 )

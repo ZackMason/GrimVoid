@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Heater.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Game/Interactables/Interactable.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Sprites/heater_001.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Game/Components/HealthComponent.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Game/Components/PowerComponent.tscn" type="PackedScene" id=5]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( -13.875, -8.25, -14, 5, 13.75, 7, 14.5, -7.75 )
@@ -25,5 +26,9 @@ occluder = SubResource( 1 )
 
 [node name="Health" parent="." index="5" instance=ExtResource( 4 )]
 position = Vector2( 0, -12.314 )
-scale = Vector2( 2.082, 2.082 )
+scale = Vector2( 0.125118, 0.125118 )
+
+[node name="Power" parent="." index="6" instance=ExtResource( 5 )]
+position = Vector2( 8.35569, -12.314 )
+scale = Vector2( 0.108243, 0.108243 )
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

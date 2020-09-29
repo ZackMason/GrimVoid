@@ -5,3 +5,4 @@
 [node name="Health" instance=ExtResource( 1 )]
 component_name = "health"
 free_on_depleted = true
+start_value = 100

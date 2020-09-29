@@ -7,10 +7,10 @@ export var run = false setget fire_bullet
 
 var stats = {
 	"damage": 10, 
-	"range": 100, 
+	"range": 200, 
 	"sprite": "res://Sprites/gun_001.png",
 	"fire_method" : "fire",
-	"alt_fire_method" : "grapple",
+	"alt_fire_method" : "wireA",
 }
 
 ##############################################################
@@ -29,6 +29,45 @@ func fire():
 			b.get_node("Health").damage(stats["damage"])
 
 onready var _s = $Spring
+
+
+var first_hit = null
+var first_body = null
+var second_hit = null
+var second_body = null
+onready var active_wire = $Wire
+
+func wireA():
+	var collision = $RayCast2D.is_colliding()
+	var p = $RayCast2D.get_collision_point()
+	var b = $RayCast2D.get_collider()
+	if first_hit == null:
+		if collision:
+			remove_child(active_wire)
+			held.get_parent().add_child(active_wire)
+			active_wire.visible = true
+			if b.is_in_group("power"):
+				first_body = b
+			first_hit = active_wire.to_local(p)
+			active_wire.pin_start = first_hit
+			active_wire.pin_end = active_wire.to_local($RayCast2D.global_position)
+			active_wire.fix()
+	elif second_hit == null:
+		if collision:
+			if b.is_in_group("power"):
+				second_body = b
+			second_hit = active_wire.to_local(p)
+			active_wire.pin_end = second_hit
+				
+			if first_body and second_body and first_body != second_body:
+				RoomConnections.wires.append([first_body.get_node('Power'), second_body.get_node('Power'), active_wire])
+		
+			active_wire = _wire.duplicate()
+			add_child(active_wire)
+			
+			first_hit = null
+			second_hit = null
+			$Wire.visible = false
 
 func grapple():
 	if not grappled:
@@ -61,6 +100,12 @@ func alt_interact(_node):
 		call(stats["alt_fire_method"])
 	
 ##############################################################
+onready var _wire = $Wire.duplicate()
+
+func _process(_d):
+	if first_hit:
+		active_wire.pin_end = active_wire.to_local($RayCast2D.global_position)
+
 func _ready():
 	._ready()
 	randomize()

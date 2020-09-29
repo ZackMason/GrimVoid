@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Sprites/generator_001.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Game/Interactables/Machine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/PowerConduit.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6.63372, 6.12073 )
+
+[node name="PowerConduit" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+disable_room_ownership = false
+power_drain_rate = -25.0
+strength = 5.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="Health" parent="." index="2"]
+position = Vector2( -10.8954, -2.59555 )
+
+[node name="Power" parent="." index="3"]
+position = Vector2( -10.8933, 3.7278 )
+
+[node name="generator_001" type="Sprite" parent="." index="4"]
+position = Vector2( -0.241356, -0.0173531 )
+scale = Vector2( 0.402831, 0.402831 )
+texture = ExtResource( 1 )

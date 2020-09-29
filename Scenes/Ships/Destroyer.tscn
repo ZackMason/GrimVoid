@@ -1,0 +1,197 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scenes/Game/Interactables/Ship/PilotSeat.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Generator.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Heater.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Game/RigidRoom.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Oxygenerater.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Turret.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Door.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Game/Interactables/Ship/Engine.tscn" type="PackedScene" id=8]
+
+[node name="Destroyer" type="Node2D"]
+
+[node name="Room" parent="." instance=ExtResource( 4 )]
+
+[node name="Room2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, -67.487 )
+depth = 7
+
+[node name="Room3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 68.4309, -67.487 )
+
+[node name="Room4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 68.4309, 0.943863 )
+
+[node name="Room5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 68.4309, 69.3747 )
+
+[node name="Room6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 68.4309, -136.39 )
+
+[node name="Room7" parent="." instance=ExtResource( 4 )]
+position = Vector2( -3.05176e-05, -136.39 )
+
+[node name="Room8" parent="." instance=ExtResource( 4 )]
+position = Vector2( -71.3524, -136.39 )
+
+[node name="Room9" parent="." instance=ExtResource( 4 )]
+position = Vector2( 138.543, -136.39 )
+
+[node name="Room10" parent="." instance=ExtResource( 4 )]
+position = Vector2( 33.6657, -207.742 )
+
+[node name="Generator" parent="." instance=ExtResource( 2 )]
+position = Vector2( 56.0063, 14.7523 )
+powered_on = true
+
+[node name="Generator2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 81.9587, -150.657 )
+powered_on = true
+
+[node name="Generator3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 54.8926, -53.6242 )
+powered_on = true
+
+[node name="Generator4" parent="." instance=ExtResource( 2 )]
+position = Vector2( -13.5179, -151.401 )
+powered_on = true
+
+[node name="PilotSeat" parent="." instance=ExtResource( 1 )]
+position = Vector2( -13.2458, -72.622 )
+scale = Vector2( 0.38249, 0.38249 )
+
+[node name="Heater" parent="." instance=ExtResource( 3 )]
+position = Vector2( 49.2477, -87.0366 )
+scale = Vector2( 0.459828, 0.459828 )
+powered_on = true
+
+[node name="Heater2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 121.454, -155.467 )
+scale = Vector2( 0.459828, 0.459828 )
+powered_on = true
+
+[node name="Oxygenerater" parent="." groups=[
+"interactable",
+] instance=ExtResource( 5 )]
+position = Vector2( 86.9127, -86.5755 )
+scale = Vector2( 0.549684, 0.549684 )
+collision_layer = 5
+collision_mask = 2147483653
+powered_on = true
+
+[node name="Oxygenerater2" parent="." groups=[
+"interactable",
+] instance=ExtResource( 5 )]
+position = Vector2( 50.3376, -19.5604 )
+scale = Vector2( 0.549684, 0.549684 )
+collision_layer = 5
+collision_mask = 2147483653
+powered_on = true
+
+[node name="Oxygenerater3" parent="." groups=[
+"interactable",
+] instance=ExtResource( 5 )]
+position = Vector2( -53.0166, -154.534 )
+scale = Vector2( 0.549684, 0.549684 )
+collision_layer = 5
+collision_mask = 2147483653
+powered_on = true
+
+[node name="Turret" parent="." instance=ExtResource( 6 )]
+position = Vector2( -28.8625, -0.920563 )
+rotation = -1.53863
+
+[node name="Turret2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 97.7596, 0.0243683 )
+rotation = 1.5699
+
+[node name="Turret3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 98.7607, 68.4349 )
+rotation = 1.75047
+
+[node name="Turret4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 40.3615, 69.7697 )
+rotation = 4.67305
+
+[node name="Turret5" parent="." instance=ExtResource( 6 )]
+position = Vector2( -100.105, -123.137 )
+rotation = 4.67305
+
+[node name="Turret6" parent="." instance=ExtResource( 6 )]
+position = Vector2( -100.105, -150.856 )
+rotation = 4.67305
+
+[node name="Turret7" parent="." instance=ExtResource( 6 )]
+position = Vector2( 167.718, -123.137 )
+rotation = 1.59435
+
+[node name="Turret9" parent="." instance=ExtResource( 6 )]
+position = Vector2( 33.1116, -237.398 )
+rotation = 0.00575998
+
+[node name="Turret8" parent="." instance=ExtResource( 6 )]
+position = Vector2( 167.718, -150.856 )
+rotation = 1.59435
+
+[node name="Door" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0.228531, -103.385 )
+seal_breaks = true
+
+[node name="Door11" parent="." instance=ExtResource( 7 )]
+position = Vector2( 103.82, -72.2722 )
+rotation = 1.57079
+sealed = true
+seal_breaks = true
+
+[node name="Door2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 69.3065, -102.05 )
+seal_breaks = true
+
+[node name="Door3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 17.9152, -174.131 )
+seal_breaks = true
+
+[node name="Door4" parent="." instance=ExtResource( 7 )]
+position = Vector2( 76.3144, -33.9732 )
+seal_breaks = true
+
+[node name="Door5" parent="." instance=ExtResource( 7 )]
+position = Vector2( 3.23192, -35.3081 )
+seal_breaks = true
+
+[node name="Door6" parent="." instance=ExtResource( 7 )]
+position = Vector2( 75.647, 34.1036 )
+seal_breaks = true
+
+[node name="Door7" parent="." instance=ExtResource( 7 )]
+position = Vector2( 32.9321, -4.60673 )
+rotation = 1.57079
+seal_breaks = true
+
+[node name="Door8" parent="." instance=ExtResource( 7 )]
+position = Vector2( 32.9321, -133.857 )
+rotation = 1.57079
+seal_breaks = true
+
+[node name="Door10" parent="." instance=ExtResource( 7 )]
+position = Vector2( 103.182, -133.857 )
+rotation = 1.57079
+seal_breaks = true
+
+[node name="Door9" parent="." instance=ExtResource( 7 )]
+position = Vector2( -36.3179, -132.857 )
+rotation = 1.57079
+seal_breaks = true
+
+[node name="Engine" parent="." instance=ExtResource( 8 )]
+position = Vector2( -4, 33 )
+
+[node name="Engine2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 63.5, 104 )
+
+[node name="Engine3" parent="." instance=ExtResource( 8 )]
+position = Vector2( -74, -104 )
+
+[node name="Engine4" parent="." instance=ExtResource( 8 )]
+position = Vector2( 137.5, -104 )

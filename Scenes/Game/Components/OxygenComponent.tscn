@@ -5,3 +5,4 @@
 [node name="Oxygen" instance=ExtResource( 1 )]
 component_name = "oxygen"
 component_color = Color( 0, 0.741176, 1, 1 )
+start_value = 100
