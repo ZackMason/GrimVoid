@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Game/Interactables/Machine.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/driver_001.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/CaptainsChair.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/UI/RoomsGui.tscn" type="PackedScene" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5.87067, 4.69858 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( 1.28922, 4.44042, -1.02836, 4.44042, -3.71012, 2.91744, -2.78309, -2.14812, 3.01085, -2.18123, 3.80544, 2.98365 )
+
+[node name="CommandChair" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+engine_torque = 25000.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="driver_001" type="Sprite" parent="." index="4"]
+position = Vector2( 0, -0.982153 )
+scale = Vector2( 0.29162, 0.29162 )
+texture = ExtResource( 2 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="5"]
+occluder = SubResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." index="6"]
+
+[node name="RoomsGui" parent="CanvasLayer" index="0" instance=ExtResource( 4 )]
+visible = false

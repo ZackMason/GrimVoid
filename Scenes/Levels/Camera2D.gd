@@ -14,14 +14,15 @@ func _process(delta):
 		if need_to_zoom:
 			zoom = Vector2(0.2,0.2)
 			need_to_zoom = false
-	else:
+	elif follow_node and follow_node._room:
 		need_to_zoom = true
 		
-		global_position = global_position.linear_interpolate(follow_node._room.global_position, 1.995 * delta)
+#		global_position = global_position.linear_interpolate(follow_node._room.global_position, 1.995 * delta)
+		global_position = follow_node._room.global_position
 		global_rotation = follow_node._room.global_rotation
 
 
-func _unhandled_input(event):
+func _input(event):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			if event.button_index == BUTTON_WHEEL_UP:
@@ -31,3 +32,5 @@ func _unhandled_input(event):
 
 	zoom.x = max(0.1, zoom.x)
 	zoom.y = max(0.1, zoom.y)
+	
+	get_tree().call_group("wire", "set", 'visible', zoom.x<0.8)

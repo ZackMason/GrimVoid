@@ -42,13 +42,14 @@ var _wire = preload("res://Scenes/Game/Wire.tscn")
 func spaghettify():
 	console.output_text("connecting Subsystems within: %f units..." % 69.0)
 	var guy = get_tree().get_nodes_in_group("guy")[0]
-	var power_nodes = guy._room.all_nodes_in_group("power")
+	var power_nodes = get_tree().get_nodes_in_group("power")
 	for n1 in power_nodes:
 		for n2 in power_nodes:
 			if n1 == n2: continue
 			if n1.global_position.distance_to(n2.global_position) < 69.0:
 				var w = _wire.instance()
-				guy._room.top_body().add_child(w)
+				guy.get_parent().add_child(w)
+#				guy._room.top_body().add_child(w)
 				var x = randf() * 2.0 - 1.0
 				var y = randf() * 2.0 - 1.0
 				w.pin_start = w.to_local(n1.global_position) + Vector2(x,y) * 5.0

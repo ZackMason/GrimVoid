@@ -71,31 +71,19 @@ position = Vector2( 121.454, -155.467 )
 scale = Vector2( 0.459828, 0.459828 )
 powered_on = true
 
-[node name="Oxygenerater" parent="." groups=[
-"interactable",
-] instance=ExtResource( 5 )]
+[node name="Oxygenerater" parent="." instance=ExtResource( 5 )]
 position = Vector2( 86.9127, -86.5755 )
 scale = Vector2( 0.549684, 0.549684 )
-collision_layer = 5
-collision_mask = 2147483653
 powered_on = true
 
-[node name="Oxygenerater2" parent="." groups=[
-"interactable",
-] instance=ExtResource( 5 )]
+[node name="Oxygenerater2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 50.3376, -19.5604 )
 scale = Vector2( 0.549684, 0.549684 )
-collision_layer = 5
-collision_mask = 2147483653
 powered_on = true
 
-[node name="Oxygenerater3" parent="." groups=[
-"interactable",
-] instance=ExtResource( 5 )]
+[node name="Oxygenerater3" parent="." instance=ExtResource( 5 )]
 position = Vector2( -53.0166, -154.534 )
 scale = Vector2( 0.549684, 0.549684 )
-collision_layer = 5
-collision_mask = 2147483653
 powered_on = true
 
 [node name="Turret" parent="." instance=ExtResource( 6 )]

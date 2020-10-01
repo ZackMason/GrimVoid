@@ -11,6 +11,9 @@ var item_offset := Vector2.ZERO
 var last_container = null
 var last_pos := Vector2.ZERO
 
+var stacked_items = {}
+var items = []
+
 func _ready():
 	$InventoryBase/TextEdit.text = get_parent().get_parent().name
 	
@@ -63,15 +66,45 @@ func return_item():
 	item_held = null
 
 
-func pickup_item(item_id):
+func pickup_item(item_id, amt = 0):
+	if amt:
+		if stacked_items.has(item_id):
+			stacked_items[item_id]["count"] += amt
+			stacked_items[item_id]["widget"].get_node("Label").text = ("%d" % stacked_items[item_id]["count"])
+			return
+		else: 
+			stacked_items[item_id] = {}
+			stacked_items[item_id]['count'] = amt
 	var item = _item_base.instance()
 	item.set_meta("id", item_id)
 	item.texture = load(ItemDB.get_item(item_id)["icon"])
+	item.get_node("Label").text = ("%d" % amt) if amt else "" 
+		
+	if amt: stacked_items[item_id]['widget'] = item
 	add_child(item)
 	if !back_pack.insert_item_at_first_available_spot(item):
 		item.queue_free()
 		return false
+	
+	if not amt: items.append(item_id)
 	return true
 
 func _on_TextEdit_text_changed():
 	get_parent().get_parent().name = $InventoryBase/TextEdit.text
+
+var drag_position = null
+
+func _input(event):
+	if item_held: 
+		drag_position = null
+		return
+	if event is InputEventMouseButton:
+		if event.pressed:
+			drag_position = get_global_mouse_position() - rect_global_position
+		else:
+			drag_position = null
+	
+	if event is InputEventMouseMotion and drag_position:
+		rect_global_position = get_global_mouse_position() - drag_position
+	
+

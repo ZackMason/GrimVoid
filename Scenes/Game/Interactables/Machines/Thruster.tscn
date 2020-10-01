@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Game/Interactables/Machine.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/engine_001.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/Thruster.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/flame_001.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 13.2353, 14.0583 )
+
+[node name="Engine" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+powered_on = false
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( 0, 12.0208 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="RoomArea" index="0"]
+position = Vector2( 0, -5.371 )
+
+[node name="Health" parent="." index="2"]
+position = Vector2( -5.42337, -5.37055 )
+
+[node name="Power" parent="." index="3"]
+position = Vector2( 5.423, -5.371 )
+scale = Vector2( 0.0820503, 0.0820503 )
+start_value = 100
+
+[node name="engine_001" type="Sprite" parent="." index="4"]
+position = Vector2( 0, 8.83937 )
+texture = ExtResource( 2 )
+
+[node name="flame_001" type="Sprite" parent="engine_001" index="0"]
+visible = false
+texture = ExtResource( 4 )

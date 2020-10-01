@@ -3,7 +3,6 @@ extends Panel
 onready var slots = get_children()
 var items := {}
 
-
 func _ready():
 	for slot in slots:
 		items[slot.name] = null
@@ -33,9 +32,6 @@ func grab_item(pos):
 	items[item_slot] = null
 	get_node(item_slot).get_node("Label").visible = true
 	return item
-	
-	
-	
 
 func get_slot_under_pos(pos):
 	return get_thing_under_pos(slots, pos)

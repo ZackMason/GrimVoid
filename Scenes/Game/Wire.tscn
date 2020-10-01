@@ -2,7 +2,9 @@
 
 [ext_resource path="res://Wire.gd" type="Script" id=1]
 
-[node name="Wire" type="Node2D"]
+[node name="Wire" type="Node2D" groups=[
+"wire",
+]]
 script = ExtResource( 1 )
 distance = 0.5
 
@@ -11,3 +13,9 @@ z_index = 7
 points = PoolVector2Array( 0, 0, -13.642, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 width = 0.5
 default_color = Color( 4.63, 5.81, 0.04, 1 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+
+[node name="VisibilityEnabler2D2" type="VisibilityEnabler2D" parent="."]
+process_parent = true
+physics_process_parent = true

@@ -1,10 +1,11 @@
 extends Node
 
-const _ICON_PATH = "res://Sprites/"
-const _ITEM_PATH = "res://Sprites/Items/"
+const _SPRITE_PATH = "res://Sprites/"
+const _ITEM_PATH = _SPRITE_PATH + "Items/"
+
 var _ITEMS := {
 	"pistol" : {
-		"icon": _ICON_PATH + "gun_001.png",
+		"icon": _SPRITE_PATH + "gun_001.png",
 		"slot": "primary",
 		"protection": [],
 	},
@@ -29,12 +30,18 @@ var _ITEMS := {
 		"protection": [],
 	},
 	"heater" : {
-		"icon": _ICON_PATH + "heater_001.png",
+		"icon": _SPRITE_PATH + "heater_001.png",
 		"slot": "",
 		"protection": [],
 	},
+	"money" : {
+		"icon": _ITEM_PATH + "money_01.png",
+		"slot": "",
+		"stack": 1,
+		"protection": [],
+	},
 	"error" : {
-		"icon": _ICON_PATH + "icon.png",
+		"icon": _SPRITE_PATH + "icon.png",
 		"slot": "",
 		"protection": [],
 	},

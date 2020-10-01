@@ -7,7 +7,13 @@
 [node name="OxygenMachine" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 
+[node name="Health" parent="." index="2"]
+position = Vector2( -5.82296, -1.51628 )
+scale = Vector2( 0.052, 0.052 )
+
 [node name="Power" parent="." index="3"]
+position = Vector2( 5.46756, -1.51628 )
+scale = Vector2( 0.0523083, 0.0523083 )
 start_value = 100
 
 [node name="oxygen_001" type="Sprite" parent="." index="4"]

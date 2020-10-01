@@ -25,6 +25,8 @@ func _process(delta):
 		pilot = null
 		get_tree().get_nodes_in_group("darkness")[0].visible = true
 		$CanvasLayer/RoomsGui.visible = false
+	
+
 
 func _unhandled_input(event):
 	if not pilot: return

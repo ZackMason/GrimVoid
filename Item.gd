@@ -2,9 +2,10 @@ extends Interactable
 class_name Item
 
 export var item_name := "" 
+export var amount := 0
 
 func interact(node):
-	node.add_to_inventory(self)
+	node.add_to_inventory(self, amount)
 	queue_free()
 	
 func _ready():

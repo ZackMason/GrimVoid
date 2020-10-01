@@ -49,6 +49,8 @@ func try_deplete(amount: float) -> bool:
 func damage(amount: float) -> bool:
 	set_value(value - amount)
 	if value <= 0 and free_on_depleted:
+		if get_parent().has_method("on_death"):
+			get_parent().call("on_death")
 		if get_parent().is_in_group("rigid"):
 			get_parent().unparent_room_contents()
 		get_parent().queue_free()

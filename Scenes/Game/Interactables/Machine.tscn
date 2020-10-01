@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/Game/Components/PowerComponent.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3.24589, 2.65123 )
+extents = Vector2( 3.54695, 3.31458 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 3.33884

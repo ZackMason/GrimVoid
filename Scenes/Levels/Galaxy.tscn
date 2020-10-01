@@ -1,11 +1,50 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Game/Interactables/Weapons/Weapon.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Ships/Destroyer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Game/Guy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Materials/space_shader.tres" type="Shader" id=2]
+[ext_resource path="res://Scenes/Game/Character.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/SpaceCamera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enviroment.tres" type="Environment" id=5]
 [ext_resource path="res://Scenes/Ships/ShipBase.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Stations/StationBase.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Game/Interactables/Items/Item.tscn" type="PackedScene" id=8]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+seed = 1
+octaves = 6
+period = 254.1
+persistence = 0.678
+lacunarity = 2.5
+
+[sub_resource type="NoiseTexture" id=2]
+seamless = true
+noise = SubResource( 1 )
+
+[sub_resource type="OpenSimplexNoise" id=3]
+period = 166.4
+persistence = 0.629
+lacunarity = 3.06
+
+[sub_resource type="NoiseTexture" id=4]
+seamless = true
+noise = SubResource( 3 )
+
+[sub_resource type="OpenSimplexNoise" id=5]
+
+[sub_resource type="NoiseTexture" id=6]
+seamless = true
+noise = SubResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 2 )
+shader_param/global_transform = Transform2D( 24.606, 0, 0, 24, -664.966, 168.195 )
+shader_param/camera_position = Vector2( -448.483, 146.539 )
+shader_param/c1 = Color( 0.956863, 0.027451, 0.027451, 1 )
+shader_param/c2 = Color( 0.0705882, 0.494118, 0.941176, 1 )
+shader_param/c3 = Color( 0.4, 0.498039, 0.14902, 1 )
+shader_param/n1 = SubResource( 2 )
+shader_param/n2 = SubResource( 4 )
+shader_param/n3 = SubResource( 6 )
 
 [node name="Galaxy" type="Node2D" groups=[
 "world",
@@ -13,18 +52,48 @@
 
 [node name="Camera2D" parent="." instance=ExtResource( 4 )]
 position = Vector2( -448.483, 146.539 )
+smoothing_enabled = true
+follow = NodePath("../ShipBase/Character")
 
-[node name="Destroyer" parent="." instance=ExtResource( 2 )]
-position = Vector2( -0.235, -0.191636 )
-
-[node name="Guy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 549.019, 47.8386 )
+[node name="Sprite" parent="Camera2D/Node2D" index="0"]
+material = SubResource( 7 )
 
 [node name="Weapon" parent="." instance=ExtResource( 1 )]
-position = Vector2( 11.0226, -83.351 )
+position = Vector2( 549.019, 49.4419 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 5 )
 
 [node name="ShipBase" parent="." instance=ExtResource( 6 )]
-position = Vector2( 478.6, 28.8377 )
+position = Vector2( 478.6, 45.7491 )
+
+[node name="Character" parent="ShipBase" instance=ExtResource( 3 )]
+position = Vector2( 0, 0.909435 )
+move_speed = 0.9
+
+[node name="Item" parent="ShipBase" instance=ExtResource( 8 )]
+position = Vector2( 62.2262, 16.7919 )
+
+[node name="Item2" parent="ShipBase" instance=ExtResource( 8 )]
+position = Vector2( 69.79, 16.7919 )
+item_name = "spacesuit"
+
+[node name="Item4" parent="ShipBase" instance=ExtResource( 8 )]
+position = Vector2( 69.79, 22.4 )
+item_name = "spacelegs"
+
+[node name="Item3" parent="ShipBase" instance=ExtResource( 8 )]
+position = Vector2( 62.2262, 22.4 )
+item_name = "money"
+amount = 100
+
+[node name="Item5" parent="ShipBase" instance=ExtResource( 8 )]
+position = Vector2( 61.6524, 29.8259 )
+item_name = "money"
+amount = 100
+
+[node name="StationBase" parent="." instance=ExtResource( 7 )]
+position = Vector2( 1259.58, -367.688 )
+rotation = 0.523598
+
+[editable path="Camera2D"]

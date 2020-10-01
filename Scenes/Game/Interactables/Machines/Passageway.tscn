@@ -1,24 +1,56 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Sprites/door_001.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/floor_006.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Game/Interactables/Machine.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Game/Interactables/Machines/Passageway.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/door_002.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.12479, 11.4524 )
+extents = Vector2( 7.47058, 11.8256 )
+
+[sub_resource type="NavigationPolygon" id=2]
+vertices = PoolVector2Array( -5.06705, -9.88866, 5.14016, -9.80991, 5.04652, 9.87635, -5.11388, 9.71886 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( -5.06705, -9.88866, 5.14016, -9.80991, 5.04652, 9.87635, -5.11388, 9.71886 ) ]
 
 [node name="Passageway" instance=ExtResource( 2 )]
+scale = Vector2( 1, 1.016 )
 script = ExtResource( 3 )
-disable_room_ownership = false
+powered_on = false
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource( 1 )
 
+[node name="Health" parent="." index="2"]
+scale = Vector2( 0.0820502, 0.0820503 )
+
+[node name="Power" parent="." index="3"]
+scale = Vector2( 0.0820502, 0.0820503 )
+
 [node name="door_001" type="Sprite" parent="." index="4"]
+position = Vector2( -0.0787468, 0 )
+scale = Vector2( 0.391387, 0.391 )
 texture = ExtResource( 1 )
 
-[node name="ExitA" type="Position2D" parent="." index="5"]
-position = Vector2( 0, -14.1009 )
+[node name="door_002" type="Sprite" parent="door_001" index="0"]
+texture = ExtResource( 4 )
 
-[node name="ExitB" type="Position2D" parent="." index="6"]
-position = Vector2( 0, 14.101 )
+[node name="DoorNav" type="NavigationPolygonInstance" parent="door_001" index="1"]
+scale = Vector2( 2.55501, 2.51727 )
+navpoly = SubResource( 2 )
+
+[node name="Entrances" type="Node2D" parent="door_001" index="2"]
+position = Vector2( 0.201199, 0 )
+scale = Vector2( 2.55501, 1.90944 )
+
+[node name="OutA" type="Position2D" parent="door_001/Entrances" index="0"]
+position = Vector2( 0, -16.9622 )
+
+[node name="InA" type="Position2D" parent="door_001/Entrances" index="1"]
+position = Vector2( 0, -11.5333 )
+
+[node name="OutB" type="Position2D" parent="door_001/Entrances" index="2"]
+position = Vector2( 0, 17.0943 )
+
+[node name="InB" type="Position2D" parent="door_001/Entrances" index="3"]
+position = Vector2( 0, 11.8311 )

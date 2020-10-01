@@ -1,0 +1,334 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/Ships/ShipBase.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/OxygenMachine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/PowerConduit.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/HeatRegulator.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Game/StaticRoom.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/Passageway.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Game/Interactables/Machines/Cannon.tscn" type="PackedScene" id=7]
+
+[node name="StationBase" type="RigidBody2D" groups=[
+"ship",
+]]
+gravity_scale = 0.0
+linear_damp = 0.5
+angular_damp = 5.0
+script = ExtResource( 1 )
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="Room" parent="Rooms" instance=ExtResource( 5 )]
+
+[node name="Room2" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( -0.0787468, -68.0303 )
+
+[node name="Room4" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( -67.6283, 17.4009 )
+
+[node name="Room8" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( -131.581, -59.547 )
+
+[node name="Room9" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( -135.045, -132.937 )
+
+[node name="Room10" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( -218.83, -120.968 )
+
+[node name="Room11" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( -216.625, -47.2628 )
+
+[node name="Room6" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( -67.6283, 96.7433 )
+
+[node name="Room5" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( 72.3555, 17.4009 )
+
+[node name="Room7" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( -0.957428, -200.878 )
+
+[node name="Room12" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( -71.5927, -210.128 )
+
+[node name="Room13" parent="Rooms" instance=ExtResource( 5 )]
+position = Vector2( 33.2941, -269.988 )
+
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="Passageway2" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( -67.6283, 57.1366 )
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 1.232
+
+[node name="Passageway4" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( -100.939, -21.746 )
+rotation = -0.523598
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 1.393
+
+[node name="Passageway5" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( 0, -33.9446 )
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 0.753
+
+[node name="Passageway13" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( 16.4217, -235.36 )
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 0.878
+
+[node name="Passageway14" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( -35.5037, -209.292 )
+rotation = 1.57079
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 0.985
+
+[node name="Passageway12" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( 0.793701, -135.299 )
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 3.484
+
+[node name="Passageway3" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( -33.7324, 7.08692 )
+rotation = 1.57079
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 0.758
+
+[node name="Passageway7" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( 36.3703, 7.08692 )
+rotation = 1.57079
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 0.935
+
+[node name="Passageway8" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( -173.513, -54.0964 )
+rotation = 1.57079
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 1.477
+
+[node name="Passageway9" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( -176.695, -125.161 )
+rotation = 1.57079
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 1.477
+
+[node name="Passageway10" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( -215.232, -84.502 )
+rotation = -0.00498283
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 1.06
+
+[node name="Passageway11" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( -133.207, -95.6389 )
+rotation = -0.00498283
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 1.06
+
+[node name="Passageway6" parent="Doors" groups=[
+"interactable",
+] instance=ExtResource( 6 )]
+position = Vector2( 72.3555, 57.1366 )
+collision_layer = 5
+collision_mask = 2147483653
+door_length = 1.232
+
+[node name="Subsystems" type="Node2D" parent="."]
+
+[node name="Heater" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 4 )]
+position = Vector2( -9.9041, 17.783 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Heater3" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 4 )]
+position = Vector2( -228.904, -29.717 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Heater4" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 4 )]
+position = Vector2( -148.404, -152.217 )
+rotation = 3.14159
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Heater2" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 4 )]
+position = Vector2( -85.3888, 114.119 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="OxygenMachine" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 2 )]
+position = Vector2( 16.0959, 16.678 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="OxygenMachine3" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 2 )]
+position = Vector2( -206.904, -29.822 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="OxygenMachine4" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 2 )]
+position = Vector2( -118.404, -115.322 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="OxygenMachine2" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 2 )]
+position = Vector2( -85.3888, 106.178 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="PowerConduit" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 3 )]
+position = Vector2( 15.2715, -79.5866 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="PowerConduit3" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 3 )]
+position = Vector2( 16.7715, -15.0089 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="PowerConduit4" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 3 )]
+position = Vector2( -50.2215, 95.4911 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="PowerConduit2" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 3 )]
+position = Vector2( -50.2215, 80.4134 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="PowerConduit5" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 3 )]
+position = Vector2( -113.844, -76.2646 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="PowerConduit6" parent="Subsystems" groups=[
+"interactable",
+] instance=ExtResource( 3 )]
+position = Vector2( -114.439, -60.8049 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Engines" type="Node2D" parent="."]
+
+[node name="FlightControl" type="Node2D" parent="."]
+
+[node name="RoomNav" type="Navigation2D" parent="."]
+
+[node name="HallNav" type="Navigation2D" parent="."]
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[node name="Turret" parent="Weapons" groups=[
+"interactable",
+] instance=ExtResource( 7 )]
+position = Vector2( -63.7409, 123.376 )
+rotation = 3.14159
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Turret2" parent="Weapons" groups=[
+"interactable",
+] instance=ExtResource( 7 )]
+position = Vector2( 72.4283, -10.7157 )
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Turret5" parent="Weapons" groups=[
+"interactable",
+] instance=ExtResource( 7 )]
+position = Vector2( -244.491, -48.2157 )
+rotation = -1.59334
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Turret6" parent="Weapons" groups=[
+"interactable",
+] instance=ExtResource( 7 )]
+position = Vector2( -246.572, -128.784 )
+rotation = -1.59334
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Turret7" parent="Weapons" groups=[
+"interactable",
+] instance=ExtResource( 7 )]
+position = Vector2( -127.456, -160.998 )
+rotation = -0.011233
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Turret3" parent="Weapons" groups=[
+"interactable",
+] instance=ExtResource( 7 )]
+position = Vector2( 100.952, 14.8053 )
+rotation = 1.57079
+collision_layer = 5
+collision_mask = 2147483653
+
+[node name="Turret4" parent="Weapons" groups=[
+"interactable",
+] instance=ExtResource( 7 )]
+position = Vector2( -96.2255, 14.8053 )
+rotation = -1.57079
+collision_layer = 5
+collision_mask = 2147483653

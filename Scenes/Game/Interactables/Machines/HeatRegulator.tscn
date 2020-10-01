@@ -8,6 +8,14 @@
 script = ExtResource( 3 )
 disable_room_ownership = false
 
+[node name="Power" parent="." index="2"]
+position = Vector2( 6.05654, 0 )
+scale = Vector2( 0.052, 0.052 )
+
+[node name="Health" parent="." index="3"]
+position = Vector2( -6.01044, 0 )
+scale = Vector2( 0.052, 0.052 )
+
 [node name="heater_001" type="Sprite" parent="." index="4"]
 position = Vector2( -0.0308914, -0.0875072 )
 scale = Vector2( 0.240006, 0.240006 )

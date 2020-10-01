@@ -1,0 +1,132 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Sprites/light.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/guy_001.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Game/Inventory/Inventory.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Guy.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/InteractableArea.gd" type="Script" id=5]
+[ext_resource path="res://Sprites/character/v1/unifrom_001.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/character/v1/body_001.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/character/v1/eyes_001.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/character/v1/hair_001.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/character/v1/skin_001.png" type="Texture" id=10]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 4.59704
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 2.69604
+
+[sub_resource type="Animation" id=3]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -15.0, 0.0, 15.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("body_001:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -15.0, 15.0, 0.0 ]
+}
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 2.25248
+
+[node name="Character" type="KinematicBody2D" groups=[
+"guy",
+]]
+z_index = 10
+collision_layer = 2
+collision_mask = 2147483655
+script = ExtResource( 4 )
+
+[node name="HandPivot" type="Node2D" parent="."]
+
+[node name="Hands" type="Node2D" parent="HandPivot"]
+position = Vector2( 0, -6.98466 )
+rotation = -1.57079
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -0.749153 )
+rotation = -0.261799
+scale = Vector2( 0.147062, 0.147062 )
+texture = ExtResource( 2 )
+
+[node name="InteractableArea" type="Area2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableArea"]
+shape = SubResource( 1 )
+
+[node name="RoomDetector" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2147483656
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomDetector"]
+shape = SubResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+scale = Vector2( 0.377779, 0.377779 )
+texture = ExtResource( 1 )
+range_item_cull_mask = 7
+shadow_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/walk = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource( 3 )]
+visible = false
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+exclude_parent = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 4 )
+disabled = true
+
+[node name="body_001" type="Sprite" parent="."]
+position = Vector2( 0, 0.40625 )
+rotation = -0.261799
+scale = Vector2( 0.129526, 0.129526 )
+texture = ExtResource( 7 )
+
+[node name="skin_001" type="Sprite" parent="body_001"]
+self_modulate = Color( 0.835294, 0.764706, 0.447059, 1 )
+texture = ExtResource( 10 )
+
+[node name="hair_001" type="Sprite" parent="body_001"]
+self_modulate = Color( 0.12549, 0.0431373, 0.0431373, 1 )
+texture = ExtResource( 9 )
+
+[node name="unifrom_001" type="Sprite" parent="body_001"]
+modulate = Color( 0.796078, 0.0980392, 0.0980392, 1 )
+texture = ExtResource( 6 )
+
+[node name="eyes_001" type="Sprite" parent="body_001"]
+texture = ExtResource( 8 )
+[connection signal="area_entered" from="InteractableArea" to="InteractableArea" method="_on_InteractableArea_area_entered"]
+[connection signal="area_exited" from="InteractableArea" to="InteractableArea" method="_on_InteractableArea_area_exited"]
+[connection signal="area_entered" from="RoomDetector" to="." method="_on_RoomArea_area_entered"]
+[connection signal="area_exited" from="RoomDetector" to="." method="_on_RoomArea_area_exited"]

@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Font/FFFFORWA.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://Mechpin.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/ui/mechpin_001.png" type="Texture" id=3]
+[ext_resource path="res://Font/pixFoont.tres" type="DynamicFont" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 8
+font_data = ExtResource( 1 )
+
+[node name="Mechpin" type="TextureButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.52
+anchor_bottom = 0.5
+margin_left = -521.446
+margin_top = -308.565
+margin_right = -523.926
+margin_bottom = -290.565
+rect_pivot_offset = Vector2( 9.53237, 8.5215 )
+mouse_filter = 1
+texture_normal = ExtResource( 3 )
+expand = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pin_type = 1
+
+[node name="Label" type="Label" parent="."]
+anchor_left = -1.302
+anchor_top = 0.278
+anchor_right = -1.302
+anchor_bottom = 0.278
+margin_left = 4.7617
+margin_top = -20.2513
+margin_right = 92.7617
+margin_bottom = 1.74869
+rect_scale = Vector2( 0.643603, 0.454674 )
+custom_fonts/font = ExtResource( 4 )
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="."]
+visible = false
+margin_left = -39.0
+margin_top = 25.0
+margin_right = 57.0
+margin_bottom = 49.0
+custom_fonts/font = SubResource( 1 )
+text = "bullet"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="mouse_entered" from="." to="." method="_on_TextureButton_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_TextureButton_mouse_exited"]
+[connection signal="mouse_entered" from="LineEdit" to="." method="_on_LineEdit_mouse_entered"]
+[connection signal="mouse_exited" from="LineEdit" to="." method="_on_LineEdit_mouse_exited"]
+[connection signal="text_entered" from="LineEdit" to="." method="_on_LineEdit_text_entered"]

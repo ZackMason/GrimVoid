@@ -15,13 +15,32 @@ func text():
 
 func _ready():
 	get_parent().add_to_group("interactable")
+	input_pickable = true
 
-#func _input_event(viewport, event, shape_idx):
-#	if not event is InputEventMouseButton:
-#		return self
-#	if event.button_index == BUTTON_LEFT and event.pressed:
-#		print("Clicked")
-#		return(self) # returns a reference to this node
+var drag_position = null
+var selected = false
+
+func _input_event(viewport, event, shape_idx):
+	if not ShipEditor.edit_mode: return
+	if event is InputEventMouseButton \
+	and event.button_index == BUTTON_LEFT:
+		
+		if event.is_pressed():
+			drag_position = get_global_mouse_position() - global_position
+			selected = true
+		else:
+			selected = false
+		return(self) # returns a reference to this node
+	
+func _input(event):
+	if not selected or not ShipEditor.edit_mode: return
+	
+	if event is InputEventMouseMotion and drag_position:
+		global_position = get_global_mouse_position() - drag_position
+	
+	if Input.is_action_just_pressed("ui_cancel"):
+		selected = false
+
 
 func _on_RoomArea_area_entered(area):
 	if area.is_in_group("room") and not _room:
@@ -38,5 +57,3 @@ func _on_RoomArea_area_exited(area):
 	if area.is_in_group("room") and _room == area.get_room():
 		_room = null
 #		print("removing %s" % name)
-		
-

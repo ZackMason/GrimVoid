@@ -20,9 +20,18 @@ export var count := 10
 var points = []
 export var distance = 3.0
 export var gravity = 9.8
+export var width = 0.5
 
-export(Vector2) var pin_start = null
-export(Vector2) var pin_end = null
+export(Vector2) var pin_start = null setget sps
+export(Vector2) var pin_end = null setget spe
+
+func sps(p):
+	pin_start = p
+	if p: $VisibilityEnabler2D.position = p
+
+func spe(p):
+	pin_end = p
+	if p: $VisibilityEnabler2D2.position = p
 
 func _ready():
 	var sp = Vector2.ZERO
@@ -31,7 +40,7 @@ func _ready():
 		sp.x += 2
 	$Line2D.points.resize(count)
 	update_line()
-		
+	$Line2D.width = width
 func update_line():
 	for i in range(points.size()):
 		$Line2D.points[i] = (points[i].p)
@@ -49,17 +58,29 @@ func fix():
 
 var iterations := 1
 
+onready var last_gp = global_position
+
 func _process(delta):
 #	delta /= iterations
+
+	var gp = global_position
+	var gv = (global_transform.inverse() * gp) - (((global_transform.inverse() * last_gp)) if last_gp else gp)
+	last_gp = gp
+#	gv = gv.rotated(PI) #* delta
+	gv *= -.2
+	if gv.length() > 50:
+		gv = Vector2.ZERO
+
+	
 	for itr in iterations:
 		for i in range(1, points.size()):
 			var p = points[i]
 			var v = p.simulate(p.p)# * delta * 50.0
 			v.y += gravity * delta
-			p.p += v
+			p.p += v + gv
 			if i > 0:
 				var lp = points[i-1]
-				if p.p.distance_to(lp.p) > distance:
+				if p.p.distance_to(lp.p) > distance or true:
 					var half = p.p+lp.p
 					half *= 0.5
 					p.p = half+distance*half.direction_to(p.p)/2.0
