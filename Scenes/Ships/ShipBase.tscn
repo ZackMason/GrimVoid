@@ -1,15 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Game/StaticRoom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Ships/ShipBase.gd" type="Script" id=2]
-[ext_resource path="res://Scenes/Game/Interactables/Weapons/Weapon.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Game/Interactables/Machines/OxygenMachine.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Game/Interactables/Machines/CaptainsChair.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Game/Interactables/Machines/HeatRegulator.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/Game/Interactables/Machines/PowerConduit.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Game/Interactables/Machines/Passageway.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Game/Interactables/Machines/Thruster.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/Game/Interactables/Machines/Cannon.tscn" type="PackedScene" id=10]
 
 [node name="ShipBase" type="RigidBody2D" groups=[
 "ship",
@@ -69,62 +62,12 @@ door_length = 1.232
 
 [node name="Subsystems" type="Node2D" parent="."]
 
-[node name="Heater" parent="Subsystems" instance=ExtResource( 6 )]
-position = Vector2( 55.5959, 115.783 )
-
-[node name="Heater2" parent="Subsystems" instance=ExtResource( 6 )]
-position = Vector2( -85.3888, 114.119 )
-
-[node name="OxygenMachine" parent="Subsystems" instance=ExtResource( 4 )]
-position = Vector2( 55.5959, 106.178 )
-
-[node name="OxygenMachine2" parent="Subsystems" instance=ExtResource( 4 )]
-position = Vector2( -85.3888, 106.178 )
-
-[node name="PowerConduit" parent="Subsystems" instance=ExtResource( 7 )]
-position = Vector2( 89.7715, 80.4134 )
-
-[node name="PowerConduit3" parent="Subsystems" instance=ExtResource( 7 )]
-position = Vector2( 89.7715, 95.4911 )
-
-[node name="PowerConduit4" parent="Subsystems" instance=ExtResource( 7 )]
-position = Vector2( -50.2215, 95.4911 )
-
-[node name="PowerConduit2" parent="Subsystems" instance=ExtResource( 7 )]
-position = Vector2( -50.2215, 80.4134 )
-
 [node name="Engines" type="Node2D" parent="."]
 
-[node name="Engine" parent="Engines" instance=ExtResource( 9 )]
-position = Vector2( 75.1699, 122.982 )
-
-[node name="Engine2" parent="Engines" instance=ExtResource( 9 )]
-position = Vector2( -67.6283, 122.982 )
-
 [node name="FlightControl" type="Node2D" parent="."]
-
-[node name="CommandChair" parent="FlightControl" instance=ExtResource( 5 )]
-position = Vector2( 0, 17.4009 )
-
-[node name="Weapon" parent="." instance=ExtResource( 3 )]
-position = Vector2( 63.1496, 87.3302 )
 
 [node name="RoomNav" type="Navigation2D" parent="."]
 
 [node name="HallNav" type="Navigation2D" parent="."]
 
 [node name="Weapons" type="Node2D" parent="."]
-
-[node name="Turret" parent="Weapons" instance=ExtResource( 10 )]
-position = Vector2( -64.9383, -10.7157 )
-
-[node name="Turret2" parent="Weapons" instance=ExtResource( 10 )]
-position = Vector2( 72.4283, -10.7157 )
-
-[node name="Turret3" parent="Weapons" instance=ExtResource( 10 )]
-position = Vector2( 100.952, 14.8053 )
-rotation = 1.57079
-
-[node name="Turret4" parent="Weapons" instance=ExtResource( 10 )]
-position = Vector2( -96.2255, 14.8053 )
-rotation = -1.57079

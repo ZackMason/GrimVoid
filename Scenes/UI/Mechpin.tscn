@@ -45,6 +45,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="OptionButton" type="OptionButton" parent="."]
+visible = false
+margin_left = -30.554
+margin_top = 24.5654
+margin_right = 49.446
+margin_bottom = 48.5654
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="LineEdit" type="LineEdit" parent="."]
 visible = false
 margin_left = -39.0
@@ -58,6 +68,12 @@ __meta__ = {
 }
 [connection signal="mouse_entered" from="." to="." method="_on_TextureButton_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_TextureButton_mouse_exited"]
+[connection signal="button_up" from="OptionButton" to="." method="_on_OptionButton_button_up"]
+[connection signal="focus_entered" from="OptionButton" to="." method="_on_OptionButton_focus_entered"]
+[connection signal="item_selected" from="OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="mouse_entered" from="OptionButton" to="." method="_on_OptionButton_mouse_entered"]
+[connection signal="mouse_exited" from="OptionButton" to="." method="_on_OptionButton_mouse_exited"]
+[connection signal="pressed" from="OptionButton" to="." method="_on_OptionButton_pressed"]
 [connection signal="mouse_entered" from="LineEdit" to="." method="_on_LineEdit_mouse_entered"]
 [connection signal="mouse_exited" from="LineEdit" to="." method="_on_LineEdit_mouse_exited"]
 [connection signal="text_entered" from="LineEdit" to="." method="_on_LineEdit_text_entered"]

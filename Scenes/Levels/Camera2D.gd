@@ -34,3 +34,4 @@ func _input(event):
 	zoom.y = max(0.1, zoom.y)
 	
 	get_tree().call_group("wire", "set", 'visible', zoom.x<0.8)
+	get_tree().call_group("wire", "set_process",  zoom.x<0.8)

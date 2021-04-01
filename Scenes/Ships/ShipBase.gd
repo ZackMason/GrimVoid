@@ -12,7 +12,19 @@ onready var weapons = $Weapons.get_children()
 onready var nav = $RoomNav as Navigation2D
 onready var hall_nav = $HallNav as Navigation2D
 
+onready var all_systems = [rooms, doors, subsystems, engines, pilots, weapons]
+onready var _powers = []
+onready var _healths = []
+ 
 var navs_to_add = []
+
+func _ready():
+	for s in all_systems:
+		for c in s:
+			if c.is_in_group("power"):
+				_powers.append(c.get_node("Power"))
+			if c.is_in_group("health"):
+				_healths.append(c.get_node("Health"))
 
 func _process(delta):
 	for n in navs_to_add:
@@ -28,6 +40,9 @@ func _process(delta):
 
 	var force := Vector2.ZERO
 	for e in engines:
+		if not e: 
+			engines.erase(e)
+			continue
 		if e.powered_on:
 			force += Vector2.UP.rotated(e.global_rotation) * e.thrust_power
 	set_applied_force(force)

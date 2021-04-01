@@ -61,6 +61,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Wires" type="Node2D" parent="MechWindow"]
+position = Vector2( -294.207, -162.293 )
+z_index = -7
+
 [node name="Pins" type="Control" parent="MechWindow"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -70,40 +74,46 @@ __meta__ = {
 }
 
 [node name="Mechpin" parent="MechWindow/Pins" instance=ExtResource( 1 )]
-margin_left = -117.621
-margin_top = -45.5586
-margin_right = -108.361
-margin_bottom = -27.5586
+margin_left = 35.5636
+margin_top = -23.7319
+margin_right = 44.8236
+margin_bottom = -5.73186
 
 [node name="Mechpin2" parent="MechWindow/Pins" instance=ExtResource( 1 )]
-margin_left = -96.5982
-margin_top = 6.15649
-margin_right = -87.3382
-margin_bottom = 24.1565
+margin_left = 25.6316
+margin_top = 41.0793
+margin_right = 34.8916
+margin_bottom = 59.0793
+
+[node name="Mechpin7" parent="MechWindow/Pins" instance=ExtResource( 1 )]
+margin_left = -129.14
+margin_top = 35.1266
+margin_right = -119.88
+margin_bottom = 53.1266
 
 [node name="Mechpin3" parent="MechWindow/Pins" instance=ExtResource( 1 )]
-margin_left = 10.941
-margin_top = 55.5965
-margin_right = 20.201
-margin_bottom = 73.5965
+margin_left = -46.2055
+margin_top = 34.1666
+margin_right = -36.9454
+margin_bottom = 52.1666
 pin_type = 3
 
 [node name="Mechpin4" parent="MechWindow/Pins" instance=ExtResource( 1 )]
-margin_left = 42.9907
-margin_top = -54.3881
-margin_right = 52.2507
-margin_bottom = -36.3881
-pin_type = 0
+margin_left = -50.2692
+margin_top = -19.8621
+margin_right = -41.0092
+margin_bottom = -1.86211
+pin_type = 3
 
 [node name="Mechpin5" parent="MechWindow/Pins" instance=ExtResource( 1 )]
 anchor_left = 0.411
 anchor_top = 0.353
 anchor_right = 0.411
 anchor_bottom = 0.353
-margin_left = 125.19
-margin_top = 62.4115
-margin_right = 143.19
-margin_bottom = 80.4115
+margin_left = 149.001
+margin_top = 28.2824
+margin_right = 167.001
+margin_bottom = 46.2824
 pin_type = 2
 
 [node name="Mechpin6" parent="MechWindow/Pins" instance=ExtResource( 1 )]
@@ -111,10 +121,10 @@ anchor_left = 0.411
 anchor_top = 0.353
 anchor_right = 0.411
 anchor_bottom = 0.353
-margin_left = 141.208
-margin_top = 27.7057
-margin_right = 159.208
-margin_bottom = 45.7057
+margin_left = 149.145
+margin_top = 90.408
+margin_right = 167.145
+margin_bottom = 108.408
 pin_type = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MechWindow"]
@@ -135,6 +145,15 @@ margin_top = 28.0
 margin_right = 98.0
 margin_bottom = 48.0
 text = "Trigger"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Reset" type="Button" parent="MechWindow/VBoxContainer"]
+margin_top = 52.0
+margin_right = 98.0
+margin_bottom = 72.0
+text = "Reset"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -178,8 +197,6 @@ text = "Not a valid
 connection"
 align = 1
 valign = 1
-
-[node name="Wires" type="Node2D" parent="MechWindow"]
-position = Vector2( -294.207, -162.293 )
 [connection signal="toggled" from="MechWindow/VBoxContainer/ConnectButton" to="." method="_on_ConnectButton_toggled"]
 [connection signal="button_up" from="MechWindow/VBoxContainer/Trigger" to="." method="_on_Trigger_button_up"]
+[connection signal="button_up" from="MechWindow/VBoxContainer/Reset" to="." method="_on_Reset_button_up"]

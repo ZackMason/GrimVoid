@@ -76,4 +76,4 @@ margin_top = 42.0
 margin_right = 113.0
 margin_bottom = 56.0
 custom_styles/fg = SubResource( 6 )
-[connection signal="gui_input" from="." to="." method="_on_RoomsGui_gui_input"]
+[connection signal="mouse_exited" from="." to="." method="_on_RoomsGui_mouse_exited"]

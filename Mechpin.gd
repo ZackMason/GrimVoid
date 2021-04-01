@@ -1,4 +1,5 @@
 extends TextureButton
+class_name Mechpin
 
 signal type_changed(type)
 
@@ -19,7 +20,10 @@ enum TYPE {
 const valid_connections := {
 	TYPE.SENSOR: [TYPE.MODULE, TYPE.TRIGGER],
 	TYPE.MODULE: [TYPE.MOD_EVENT],
-	TYPE.MOD_EVENT: [TYPE.MODULE],
+	TYPE.MOD_EVENT: [
+		TYPE.MODULE,
+		#TYPE.TRIGGER
+		],
 	TYPE.TRIGGER: [TYPE.MODULE],
 	TYPE.ALT_TRIGGER: [TYPE.MODULE],
 	TYPE.SIZE: [],
@@ -47,9 +51,19 @@ const type_default := {
 	TYPE.SENSOR: "power_off",
 	TYPE.MODULE: "bullet",
 	TYPE.MOD_EVENT: "on_hit",
-	TYPE.TRIGGER: "trigger_pulled",
+	TYPE.TRIGGER: "mechanism",
 	TYPE.ALT_TRIGGER: "trigger_pulled",
 	TYPE.SIZE: "error",
+}
+
+#possible vfuncs
+const type_vfunc := {
+	TYPE.SENSOR: ["power_off"],
+	TYPE.MODULE: ["bullet", 'wire', 'laser'],
+	TYPE.MOD_EVENT: ["on_hit", 'delay', 'reflect'],
+	TYPE.TRIGGER: ['trigger_pulled', "mechanism"],
+	TYPE.ALT_TRIGGER: ["trigger_pulled"],
+	TYPE.SIZE: ["error"],
 }
 
 onready var vfunc = type_default[pin_type]
@@ -59,7 +73,7 @@ func on_hit():
 	
 func fire_bullet():
 	print('bang')
-
+	
 func power_off():
 	print("powered_off")
 
@@ -71,7 +85,10 @@ export var pin_type = TYPE.SENSOR setget set_pin_type
 func _ready():
 	set_pin_type(pin_type)
 	$Label.text = "%s" % type_names[pin_type]
-	$LineEdit.text = "%s" % type_default[pin_type]
+	for f in type_vfunc[pin_type]:
+		$OptionButton.add_item(f)
+	$OptionButton.selected = 0
+#	$OptionButton.text = "%s" % type_default[pin_type]
 
 func set_pin_type(type):
 	pin_type = type
@@ -79,29 +96,53 @@ func set_pin_type(type):
 	emit_signal("type_changed", type)
 	vfunc = type_default[pin_type]
 	
+static func merge_dir(target, patch):
+	for key in patch:
+		if target.has(key):
+			var tv = target[key]
+			if typeof(tv) == TYPE_DICTIONARY:
+				merge_dir(tv, patch[key])
+			elif typeof(tv) == TYPE_ARRAY:
+				target[key] += patch[key]
+			else:
+				target[key] = patch[key]
+		else:
+			target[key] = patch[key]
+	
+#todo implement sensors
+#call with no args
+
 func trigger(been_triggered := {}, results := {"immediate": [], "events": {}}):
-	if been_triggered.has(self): return
+	if been_triggered.has(self): return results
 	been_triggered[self] = true
 	match pin_type:
 		TYPE.MODULE:
-			results["immediate"].append(vfunc)
-			for c in connections:
+#			results["immediate"].append(vfunc)
+			results["immediate"].append(self)
+			for c in connections: # c[0] = pin, c[1] = wire (not needed)
 				c[0].trigger(been_triggered.duplicate(), results)
 		TYPE.MOD_EVENT:
 			var call_chain_results := {"immediate": [], "events": {}}
-			for c in connections:
-#				c[0].trigger({self:true}, call_chain_results)
-				c[0].trigger({}, call_chain_results)
-			results["events"][vfunc] = call_chain_results
+			for c in connections: # c[0] = pin, c[1] = wire (not needed)
+				var t = been_triggered.duplicate()
+#				t.erase(results['immediate'].back())
+				c[0].trigger(t, call_chain_results)
+#				c[0].trigger({self:true,results['immediate'].back():true}, call_chain_results)
+#				c[0].trigger({}, call_chain_results)
+#			results["events"][vfunc] = call_chain_results
+			if not results["events"].has(vfunc): results["events"][vfunc] = {}
+			merge_dir(results["events"][vfunc], call_chain_results)
+#			results["events"][vfunc] = call_chain_results
 			if not results['events'][vfunc].has("action"): results['events'][vfunc]["action"] = []
-			results['events'][vfunc]["action"].append(results['immediate'].back())
+			results['events'][vfunc]["action"].append(results['immediate'].back().vfunc)
 		TYPE.TRIGGER, TYPE.ALT_TRIGGER:
-			for c in connections:
+#			results["immediate"].append(self)
+			for c in connections: # c[0] = pin, c[1] = wire (not needed)
 				c[0].trigger(been_triggered.duplicate(), results)
 	return results
 
 func add_connection(pin):
-	if pin_type in valid_connections[pin.pin_type]:
+	if self.pin_type in valid_connections[pin.pin_type]:
 		print("connecting pins %s and %s" % [name, pin.name])
 		pin.connections.append([self, _mechanism.active_wire])
 		#keep track of end points for dragging
@@ -119,8 +160,8 @@ var text_enter = false
 
 func _on_TextureButton_mouse_entered():
 	hovered = true
-	if not _cm.visible and (pin_type == TYPE.MODULE or pin_type == TYPE.MOD_EVENT):
-		$LineEdit.visible = true
+	if not _cm.visible and (pin_type == TYPE.MODULE or pin_type == TYPE.MOD_EVENT or pin_type == TYPE.TRIGGER):
+		$OptionButton.visible = true
 	if in_connect_mode():
 		if not connection_started():
 #			_mechanism.connecting_pin = self
@@ -132,8 +173,8 @@ func _on_TextureButton_mouse_entered():
 func _on_TextureButton_mouse_exited():
 	hovered = false
 	yield(get_tree().create_timer(0.3),"timeout")
-	if not hovered and not text_enter:
-		$LineEdit.visible = false
+#	if not hovered and not text_enter:
+#		$OptionButton.visible = false
 
 onready var _cm = $'../../ConnectMode'
 onready var _cs = $'../../ConnectionStarted'
@@ -180,8 +221,33 @@ func _on_LineEdit_mouse_entered():
 
 func _on_LineEdit_mouse_exited():
 	text_enter = false
-	$LineEdit.visible = false
+	$OptionButton.visible = false
+#	$LineEdit.visible = false
 	
 func _on_LineEdit_text_entered(new_text):
-	if pin_type == TYPE.MODULE or pin_type == TYPE.MOD_EVENT:
+	if pin_type == TYPE.MODULE or pin_type == TYPE.MOD_EVENT or pin_type == TYPE.TRIGGER:
 		vfunc = new_text
+
+
+func _on_OptionButton_item_selected(index):
+	vfunc = type_vfunc[pin_type][index]
+	text_enter = false
+	$OptionButton.visible = false
+
+
+func _on_OptionButton_mouse_entered():
+	text_enter = true
+
+func _on_OptionButton_mouse_exited():
+#	yield(get_tree().create_timer(0.4), "timeout")
+#	text_enter = false
+#	$OptionButton.visible = false
+	pass
+
+func _on_OptionButton_pressed():
+	text_enter = true
+
+
+func _on_OptionButton_focus_entered():
+	text_enter = true
+	print('click')

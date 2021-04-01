@@ -36,6 +36,7 @@ func _ready():
 	._ready()
 	$door_001.visible = not sealed
 	
+#	return
 	var _ship = get_parent().get_parent()
 	assert(_ship is ShipBase)
 	var gt = shape.global_transform
@@ -54,44 +55,6 @@ func _notification(what):
 func do(dt):
 	pass
 
-
-#func _process(delta):
-#	if (not room_b or not room_a) and connected:
-#		connected = false
-#
-#	if sealed: return 
-#	if not room_a:
-#		if not room_b: 
-#			return
-#		else:
-#			room_b.oxygen -= oxygen_flow_rate * delta
-#			return
-#	else:
-#		if not room_b:
-#			room_a.oxygen -= oxygen_flow_rate * delta
-#			return
-#
-#	var o_parity = 1.0
-#	if room_b.oxygen > room_a.oxygen:
-#		o_parity = -1.0
-#	if room_b.oxygen != room_a.oxygen:
-#		room_b.oxygen += oxygen_flow_rate * delta * o_parity
-#		room_a.oxygen -= oxygen_flow_rate * delta * o_parity
-#
-#	var t_parity = 1.0
-#	if room_b.temp > room_a.temp:
-#		t_parity = -1.0
-#	if room_b.temp != room_a.temp:
-#		room_b.temp += temp_flow_rate * delta * t_parity
-#		room_a.temp -= temp_flow_rate * delta * t_parity
-#
-#	return
-#	var e_parity = 1.0
-#	if room_b.power > room_a.power:
-#		e_parity = -1.0
-#	if room_b.power != room_a.power:
-#		room_b.power += power_flow_rate * delta * e_parity
-#		room_a.power -= power_flow_rate * delta * e_parity
 ##############################################################
 
 func alt_interact(_node):

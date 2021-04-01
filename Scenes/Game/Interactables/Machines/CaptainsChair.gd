@@ -8,9 +8,15 @@ var pilot_position = Vector2.ZERO
 
 onready var _ship = get_parent().get_parent()
 
+var ld = 0.0
+
 func _process(delta):
 	if not pilot: return
-
+	ld = delta
+	
+func _unhandled_input(event):
+	if not pilot: return
+	var delta = ld
 	var input := Vector2.ZERO
 	input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	input.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -21,6 +27,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		pilot_parent.add_child(pilot)
 		pilot.global_position = to_global(pilot_position)
+		#bug if no room
 		pilot.global_rotation = _room.global_rotation
 		pilot._room = null
 		pilot = null
@@ -36,8 +43,6 @@ func _process(delta):
 		if Input.is_action_just_pressed("fire"):
 			weapon.fire()
 			
-func _unhandled_input(event):
-	if not pilot: return
 #	var turrets = _room.all_nodes_in_group("turret")
 #	var fire = Input.is_action_just_pressed("fire")
 #	for turret in turrets:
@@ -73,7 +78,7 @@ func interact(node):
 	get_tree().get_nodes_in_group("darkness")[0].visible = false
 #	$CanvasLayer/RoomsGui.rooms = [_room]
 	
-	$CanvasLayer/RoomsGui.rooms = get_tree().get_nodes_in_group('room')
+#	$CanvasLayer/RoomsGui.rooms = get_tree().get_nodes_in_group('room')
 	$CanvasLayer/RoomsGui.visible = true
 	$CanvasLayer/RoomsGui._room = _room
 

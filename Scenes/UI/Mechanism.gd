@@ -27,7 +27,9 @@ func set_connecting_pin(v):
 		
 func _input(event):
 	if Input.is_action_just_pressed("alt_fire"):
-		if active_wire: clear_wire()
+		if active_wire: 
+			clear_wire()
+			$MechWindow/ConnectionStarted.visible = false
 		
 func clear_wire():
 	if not active_wire: return
@@ -41,7 +43,9 @@ func set_wire_end(p):
 func _process(delta):
 	if active_wire:
 		active_wire.get_node("Line2D").width = 5.0
-		active_wire.gravity = 175.0
+#		active_wire.gravity = 175.0
+		active_wire.gravity = 0.0
+		active_wire.distance = 6.0
 		active_wire.pin_end = _wires.get_local_mouse_position()
 	
 	for w in _wires.get_children():
@@ -62,6 +66,13 @@ func _on_Trigger_button_up():
 func trigger(alt := false):
 	var trigger_list = []
 	for p in $MechWindow/Pins.get_children():
-		if p.pin_type == (2 if not alt else 4):
+		if p.pin_type == (Mechpin.TYPE.TRIGGER if not alt else Mechpin.TYPE.ALT_TRIGGER): # if trigger or alt trigger
 			trigger_list.append(p.trigger())
 	return trigger_list
+
+
+func _on_Reset_button_up():
+	var p = get_parent()
+	p.remove_child(self)
+	p.add_child(load("res://Scenes/UI/Mechanism.tscn").instance())
+	queue_free()

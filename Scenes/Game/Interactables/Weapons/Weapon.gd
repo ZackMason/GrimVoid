@@ -13,6 +13,7 @@ var stats = {
 	"alt_fire_method" : "mechanism",
 }
 
+onready var _wire = $Wire.duplicate()
 onready var _mechanism = $MeshLayer/Mechanism
 ##############################################################
 
@@ -24,37 +25,76 @@ func power_off():
 
 func trigger_pulled():
 	print("trigger was pulled")
-
+	
 func mechanism(alt = false, shots = null):
 	if not shots:
 		shots = _mechanism.trigger(alt)
 	if not shots: 
 		print("mechanism not working")
 		return
+#	for i in range(shots.size()):
 	for shot in shots:
-		print(shot)
-		for effect in shot["immediate"]:
-			print(effect)
-			var hit = call(effect)
-			if hit:
-				if shot['events'].has('on_hit') and effect in shot['events']['on_hit']['action']:
-					print("%s on hit event: %s" % [effect, shot['events']['on_hit']])
-					shot['events']['on_hit']['action'].erase(effect)
-					mechanism(alt, [shot['events']['on_hit']])
-					
-					
+#		var shot = shots[i]
+#		print(shot)
+		var i = 0
+		while i < shot['immediate'].size():
+			var effect = shot['immediate'][i]
+		
+#		for effect in shot["immediate"]:
+			print(effect.vfunc)
+
+			var hit = call(effect.vfunc)
+
+			if hit: # disabled
+				if shot['events'].has('on_hit') and effect.vfunc in shot['events']['on_hit']['action']:
+#					print("%s on hit event: %s" % [effect.vfunc, shot['events']['on_hit']])
+					shot['events']['on_hit']['action'].erase(effect.vfunc)
+#					shots.insert(i+1,shot['events']['on_hit'])
+					shots.append(shot['events']['on_hit'])
+#					mechanism(alt, [shot['events']['on_hit']])
+			if shot['events'].has('delay') and effect.vfunc in shot['events']['delay']['action']:
+				print('delay')
+				shot['events']['delay']['action'].erase(effect.vfunc)
+				yield(get_tree().create_timer(0.2),"timeout")
+				shots.append(shot['events']['delay'])
+#				for e in shot['events']['delay']['immediate']:
+#					shot['immediate'].append(e)
+#					break
+#				shot["immediate"] += (shot['events']['delay']['immediate'])
+#				mechanism(alt, [shot['events']['delay']])
+			i += 1
+
+	print('done')
+#		shots[i] = shot
 func fire_bullet(_b=0):
 	var nb = _bullet.instance()
 	add_child(nb)
 	nb.position = $RayCast2D.position
-	nb.rotation_degrees = (randf() * 2.0 - 1.0) * 5.0
-	$RayCast2D.rotation_degrees = nb.rotation_degrees
 	
+func scatter():
+	$RayCast2D.rotation_degrees = (randf() * 2.0 - 1.0) * 15.0
+	
+onready var _laser = preload('res://Scenes/Game/Projectiles/Laser.tscn')
+onready var _b = preload('res://Scenes/Game/Projectiles/Bullet.tscn')
+
+func laser():
+#	print("laser")
+	var l = _laser.instance()
+	$RayCast2D.add_child(l)
+	l.rotation = deg2rad((randf() * 2.0 - 1.0) * 15.0)
+	
+func bullet():
+	var l = _b.instance()
+	$RayCast2D.add_child(l)
+	l.rotation = deg2rad((randf() * 2.0 - 1.0) * 15.0)
+#	return fire()
+
 func fire():
 	fire_bullet()
+	$RayCast2D.force_raycast_update()
 	if $RayCast2D.is_colliding():
 		var b = $RayCast2D.get_collider()
-		print(b.name)
+#		print(b.name)
 		if b.is_in_group("health"):
 			b.get_node("Health").damage(stats["damage"])
 			return true
@@ -69,13 +109,9 @@ var second_hit = null
 var second_body = null
 onready var active_wire = $Wire
 
-func bullet():
-	print("bullet")
-	fire()
 
 func wire():
-	print("wire")
-	$RayCast2D.rotation_degrees = 3.0*(randf()*2.0-1.0)
+#	print("wire")
 	var collision = $RayCast2D.is_colliding()
 	var p = $RayCast2D.get_collision_point()
 	var b = $RayCast2D.get_collider()
@@ -137,6 +173,7 @@ func interact(node):
 		node.add_child(_s)
 		disable_room_ownership = true
 	else:
+		print("firing")
 		call(stats["fire_method"])
 	
 func alt_interact(_node):
@@ -146,13 +183,15 @@ func alt_interact(_node):
 		call(stats["alt_fire_method"], true)
 	
 ##############################################################
-onready var _wire = $Wire.duplicate()
 
 func _process(_d):
+	if not _mechanism: 
+		_mechanism = $MeshLayer.get_child(0)
 	if held:
 		if Input.is_action_just_pressed("hack_screen"):
+			print("ggg")
 			_mechanism.visible = not _mechanism.visible 
-		
+			_mechanism.rect_position = Vector2.ZERO
 	if first_hit:
 		active_wire.pin_end = active_wire.to_local($RayCast2D.global_position)
 

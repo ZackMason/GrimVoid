@@ -19,6 +19,7 @@ func _ready():
 #	get_parent().add_collision_exception_with(self)
 	pass
 
+
 func _unhandled_input(event):#_input(_event):
 	if not DevConsole.get_node("CanvasLayer/Base/Slider/DevConsole").closed: 
 		return

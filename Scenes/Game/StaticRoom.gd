@@ -5,6 +5,7 @@ onready var _shapes = [$CollisionShape2D, $CollisionShape2D2, $CollisionShape2D3
 var _cached_ship_shape = []
 
 func add_shapes_to_ship():
+#	return
 	var _ship = get_parent().get_parent()
 	assert(_ship is ShipBase)
 	for shape in _shapes:

@@ -5,7 +5,7 @@
 [ext_resource path="res://Scenes/Game/Character.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/SpaceCamera.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enviroment.tres" type="Environment" id=5]
-[ext_resource path="res://Scenes/Ships/ShipBase.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Ships/Fighter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Stations/StationBase.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Game/Interactables/Items/Item.tscn" type="PackedScene" id=8]
 
@@ -53,7 +53,7 @@ shader_param/n3 = SubResource( 6 )
 [node name="Camera2D" parent="." instance=ExtResource( 4 )]
 position = Vector2( -448.483, 146.539 )
 smoothing_enabled = true
-follow = NodePath("../ShipBase/Character")
+follow = NodePath("../Navigation2D/ShipBase2/Character")
 
 [node name="Sprite" parent="Camera2D/Node2D" index="0"]
 material = SubResource( 7 )
@@ -64,36 +64,40 @@ position = Vector2( 549.019, 49.4419 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 5 )
 
-[node name="ShipBase" parent="." instance=ExtResource( 6 )]
-position = Vector2( 478.6, 45.7491 )
+[node name="Navigation2D" type="Navigation2D" parent="." groups=[
+"nav",
+]]
 
-[node name="Character" parent="ShipBase" instance=ExtResource( 3 )]
-position = Vector2( 0, 0.909435 )
-move_speed = 0.9
-
-[node name="Item" parent="ShipBase" instance=ExtResource( 8 )]
-position = Vector2( 62.2262, 16.7919 )
-
-[node name="Item2" parent="ShipBase" instance=ExtResource( 8 )]
-position = Vector2( 69.79, 16.7919 )
-item_name = "spacesuit"
-
-[node name="Item4" parent="ShipBase" instance=ExtResource( 8 )]
-position = Vector2( 69.79, 22.4 )
-item_name = "spacelegs"
-
-[node name="Item3" parent="ShipBase" instance=ExtResource( 8 )]
-position = Vector2( 62.2262, 22.4 )
-item_name = "money"
-amount = 100
-
-[node name="Item5" parent="ShipBase" instance=ExtResource( 8 )]
-position = Vector2( 61.6524, 29.8259 )
-item_name = "money"
-amount = 100
-
-[node name="StationBase" parent="." instance=ExtResource( 7 )]
+[node name="StationBase" parent="Navigation2D" instance=ExtResource( 7 )]
 position = Vector2( 1259.58, -367.688 )
 rotation = 0.523598
+
+[node name="ShipBase2" parent="Navigation2D" instance=ExtResource( 6 )]
+position = Vector2( 517.01, 187 )
+
+[node name="Character" parent="Navigation2D/ShipBase2" instance=ExtResource( 3 )]
+position = Vector2( 5.78497, -2.62117 )
+move_speed = 0.9
+
+[node name="Item" parent="Navigation2D/ShipBase2" instance=ExtResource( 8 )]
+position = Vector2( 68.0112, 13.2613 )
+
+[node name="Item2" parent="Navigation2D/ShipBase2" instance=ExtResource( 8 )]
+position = Vector2( 75.575, 13.2613 )
+item_name = "spacesuit"
+
+[node name="Item4" parent="Navigation2D/ShipBase2" instance=ExtResource( 8 )]
+position = Vector2( 75.575, 18.8694 )
+item_name = "spacelegs"
+
+[node name="Item3" parent="Navigation2D/ShipBase2" instance=ExtResource( 8 )]
+position = Vector2( 68.0112, 18.8694 )
+item_name = "money"
+amount = 100
+
+[node name="Item5" parent="Navigation2D/ShipBase2" instance=ExtResource( 8 )]
+position = Vector2( 67.4373, 26.2953 )
+item_name = "money"
+amount = 100
 
 [editable path="Camera2D"]

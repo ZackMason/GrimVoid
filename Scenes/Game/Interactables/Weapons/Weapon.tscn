@@ -22,7 +22,7 @@ script = ExtResource( 4 )
 shape = SubResource( 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="." index="1"]
-position = Vector2( 2.09585, -0.734161 )
+position = Vector2( 2.21751, -0.680891 )
 rotation = -1.95013e-13
 enabled = true
 cast_to = Vector2( 100, 0 )
@@ -46,6 +46,7 @@ scale = Vector2( 0.0284198, 0.0284198 )
 [node name="Wire" parent="." index="6" instance=ExtResource( 5 )]
 visible = false
 position = Vector2( 1.71751, -0.680891 )
+count = 5
 distance = 1.0
 gravity = 0.0
 
