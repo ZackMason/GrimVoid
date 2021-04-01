@@ -29,14 +29,13 @@ func _unhandled_input(event):#_input(_event):
 	elif Input.is_action_just_pressed("close_inventory"):
 		$CanvasLayer/Inventory.visible = false
 	
-	if Input.is_action_just_pressed("fire"):
-		if is_holding():
+	if is_holding():
+		if Input.is_action_just_pressed("fire"):
 			$HandPivot/Hands.get_child(0).interact(self)
-	elif Input.is_action_just_pressed("alt_fire"):
-		if is_holding():
+		elif Input.is_action_just_pressed("alt_fire"):
 			$HandPivot/Hands.get_child(0).alt_interact(self)
 			
-	elif Input.is_action_just_pressed("interact"):
+	if Input.is_action_just_pressed("interact"):
 		if not $InteractableArea.nearby_interactables.empty():
 			$InteractableArea.nearby_interactables[0].interact(self);
 		else:

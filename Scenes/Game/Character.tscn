@@ -64,7 +64,6 @@ rotation = -1.57079
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
 position = Vector2( 0, -0.749153 )
-rotation = -0.261799
 scale = Vector2( 0.147062, 0.147062 )
 texture = ExtResource( 2 )
 
@@ -108,7 +107,6 @@ disabled = true
 
 [node name="body_001" type="Sprite" parent="."]
 position = Vector2( 0, 0.40625 )
-rotation = -0.261799
 scale = Vector2( 0.129526, 0.129526 )
 texture = ExtResource( 7 )
 

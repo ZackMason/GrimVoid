@@ -5,15 +5,20 @@ var grappled = null
 onready var _bullet = preload("res://Scenes/Game/Interactables/Weapons/Bullet.tscn")
 export var run = false setget fire_bullet
 
+onready var bullet_prefabs = {
+	'wire': preload("res://Scenes/Game/Wire.tscn"),
+	'bullet': preload('res://Scenes/Game/Projectiles/Bullet.tscn'),
+	'laser': preload('res://Scenes/Game/Projectiles/Laser.tscn'),
+}
+
 var stats = {
 	"damage": 10, 
 	"range": 200, 
 	"sprite": "res://Sprites/gun_001.png",
 	"fire_method" : "mechanism",
-	"alt_fire_method" : "mechanism",
+	"alt_fire_method" : "wire",
 }
 
-onready var _wire = $Wire.duplicate()
 onready var _mechanism = $MeshLayer/Mechanism
 ##############################################################
 
@@ -49,7 +54,7 @@ func mechanism(alt = false, shots = null):
 				if shot['events'].has('on_hit') and effect.vfunc in shot['events']['on_hit']['action']:
 #					print("%s on hit event: %s" % [effect.vfunc, shot['events']['on_hit']])
 					shot['events']['on_hit']['action'].erase(effect.vfunc)
-#					shots.insert(i+1,shot['events']['on_hit'])
+					#shots.insert(i+1,shot['events']['on_hit'])
 					shots.append(shot['events']['on_hit'])
 #					mechanism(alt, [shot['events']['on_hit']])
 			if shot['events'].has('delay') and effect.vfunc in shot['events']['delay']['action']:
@@ -100,57 +105,47 @@ func fire():
 			return true
 	return false
 
-onready var _s = $Spring
-
-
 var first_hit = null
 var first_body = null
 var second_hit = null
 var second_body = null
-onready var active_wire = $Wire
 
+var tethered_wire = null
 
 func wire():
-#	print("wire")
-	var collision = $RayCast2D.is_colliding()
-	var p = $RayCast2D.get_collision_point()
-	var b = $RayCast2D.get_collider()
-	if first_hit == null:
-		if collision:
-			remove_child(active_wire)
-			held.get_parent().add_child(active_wire)
-			active_wire.visible = true
-			if b.is_in_group("power"):
+	var ray = $RayCast2D
+	var collision = ray.is_colliding()
+	var p = ray.get_collision_point()
+	var b = ray.get_collider()
+	if first_hit == null and collision:
+		tethered_wire = bullet_prefabs['wire'].instance()
+		held.get_parent().add_child(tethered_wire)
+		tethered_wire.visible = true
+		if b.is_in_group("power"):
 				first_body = b
-			first_hit = active_wire.to_local(p)
-			active_wire.pin_start = first_hit
-			active_wire.pin_end = active_wire.to_local($RayCast2D.global_position)
-			active_wire.fix()
-			return true
-	elif second_hit == null:
-		if collision:
-			if b.is_in_group("power"):
-				second_body = b
-			second_hit = active_wire.to_local(p)
-			active_wire.pin_end = second_hit
-				
-			if first_body and second_body and first_body != second_body:
-				print("connected power %s <=> %s" % [first_body.name, second_body.name])
-				RoomConnections.wires.append([first_body.get_node('Power'), second_body.get_node('Power'), active_wire])
+		first_hit = tethered_wire.to_local(p)
+		tethered_wire.pin_start = first_hit
+		tethered_wire.pin_end = tethered_wire.to_local(ray.global_position)
+		tethered_wire.fix()
+		return true
+	elif second_hit == null and collision:
+		if b.is_in_group("power"):
+			second_body = b
+		second_hit = tethered_wire.to_local(p)
+		tethered_wire.pin_end = second_hit
+			
+		if first_body and second_body and first_body != second_body:
+			print("connected power %s <=> %s" % [first_body.name, second_body.name])
+			RoomConnections.wires.append([first_body.get_node('Power'), second_body.get_node('Power'), tethered_wire])
 		
-			active_wire = _wire.duplicate()
-			add_child(active_wire)
-			
-			$Wire.pin_start = Vector2.ZERO
-			$Wire.pin_end = Vector2.ZERO
-			
-			first_hit = null
-			first_body = null
-			second_hit = null
-			second_body = null
-			$Wire.visible = false
-			return true
+		first_hit = null
+		first_body = null
+		second_hit = null
+		second_body = null
+		return true
+	return false
 
+"""
 func grapple():
 	if not grappled:
 		fire_bullet()
@@ -164,13 +159,12 @@ func grapple():
 		grappled = false
 		_s.node_a = ""
 		_s.node_b = ""
+"""
 
 func interact(node):
 	if not held:
 		node.pick_up(self)
 		held = node
-		remove_child(_s)
-		node.add_child(_s)
 		disable_room_ownership = true
 	else:
 		print("firing")
@@ -193,11 +187,9 @@ func _process(_d):
 			_mechanism.visible = not _mechanism.visible 
 			_mechanism.rect_position = Vector2.ZERO
 	if first_hit:
-		active_wire.pin_end = active_wire.to_local($RayCast2D.global_position)
+		tethered_wire.pin_end = tethered_wire.to_local($RayCast2D.global_position)
 
 func _ready():
 	._ready()
 	randomize()
 	$RayCast2D.cast_to.x = stats["range"]
-	$Wire.pin_start = Vector2.ZERO
-	$Wire.pin_end = Vector2.ZERO
