@@ -1,0 +1,128 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scenes/Game/Components/PowerComponent.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Game/Components/HeatComponent.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Game/Components/HealthComponent.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Game/Components/OxygenComponent.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sprites/floor_007.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/wall_007.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Game/RoomArea.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Game/StaticRoom.gd" type="Script" id=8]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+polygon = PoolVector2Array( 1, -57, -15, -45, -30, -7, -44, -5, -57, 28, -55, 38, -24, 53, 28, 52, 54, 38, 58, 25, 44, -5, 30, -6, 18, -39 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.45001, 18.5606 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 5.13394, 14 )
+
+[sub_resource type="NavigationPolygon" id=4]
+vertices = PoolVector2Array( -24, -3, -10, -38, 0, -49, 11, -37, 24, 0, -37, 1, 37, 0, 50, 30, 23, 45, -25, 44, -50, 29 )
+polygons = [ PoolIntArray( 0, 1, 2, 3, 4 ), PoolIntArray( 5, 4, 6, 7, 8, 9, 10 ), PoolIntArray( 4, 5, 0 ) ]
+outlines = [ PoolVector2Array( 0, -49, -10, -38, -24, -3, -37, 1, -50, 29, -25, 44, 23, 45, 50, 30, 37, 0, 24, 0, 11, -37 ) ]
+
+[node name="Room" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource( 8 )
+
+[node name="floor_007" type="Sprite" parent="."]
+position = Vector2( 0, -1 )
+texture = ExtResource( 5 )
+
+[node name="wall_007" type="Sprite" parent="."]
+texture = ExtResource( 6 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 1 )
+
+[node name="RoomArea" type="Area2D" parent="." groups=[
+"room",
+]]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource( 7 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RoomArea"]
+polygon = PoolVector2Array( 7, -62.9, 18, -53.9, 18, -51.7, 27, -40.7, 27, -37.4, 35.4, -16, 48, -12.5, 48, -11, 53, -7, 53, -4.5, 64, 18.4, 64, 38, 62.9, 38, 49.9, 52, 47.4, 52, 27.4, 61, -27.4, 61, -51, 51.3, -51, 49.9, -64, 38.9, -64, 36, -64, 19, -63.4, 19, -52.3, -8, -51, -8, -47, -13, -43.3, -13, -36, -15.4, -36, -16.4, -25.4, -44, -24.1, -44, -17.1, -55, -15.7, -55, -7, -62.9, -7, -64, 7, -64 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -24, -24 )
+rotation = 0.261799
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2( -51, 10 )
+rotation = 0.408821
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D7" type="CollisionShape2D" parent="."]
+position = Vector2( -46, 43 )
+rotation = -1.0472
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D8" type="CollisionShape2D" parent="."]
+position = Vector2( -12, 54 )
+rotation = -1.57079
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D9" type="CollisionShape2D" parent="."]
+position = Vector2( 8, 53 )
+rotation = -1.57079
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D10" type="CollisionShape2D" parent="."]
+position = Vector2( 41, 45 )
+rotation = -2.09439
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D11" type="CollisionShape2D" parent="."]
+position = Vector2( 38, -6 )
+rotation = -1.57079
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D12" type="CollisionShape2D" parent="."]
+position = Vector2( -38, -6 )
+rotation = -1.57079
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2( 23, -24 )
+rotation = -0.372773
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
+position = Vector2( 12, -46 )
+rotation = -0.523598
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="."]
+position = Vector2( -14, -46 )
+rotation = 0.785397
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2( 51, 11 )
+rotation = -0.451869
+shape = SubResource( 2 )
+
+[node name="Health" parent="." instance=ExtResource( 3 )]
+position = Vector2( 36, 7 )
+scale = Vector2( 0.05, 0.05 )
+
+[node name="Heat" parent="." instance=ExtResource( 2 )]
+position = Vector2( 36, 3 )
+scale = Vector2( 0.05, 0.05 )
+
+[node name="Oxygen" parent="." instance=ExtResource( 4 )]
+position = Vector2( 32, 3 )
+scale = Vector2( 0.05, 0.05 )
+
+[node name="Power" parent="." instance=ExtResource( 1 )]
+position = Vector2( 32, 7 )
+scale = Vector2( 0.05, 0.05 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+navpoly = SubResource( 4 )

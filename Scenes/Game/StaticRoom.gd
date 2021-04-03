@@ -29,6 +29,14 @@ func add_shapes_to_ship():
 #	n.set_deferred('global_transform', gt)
 #
 func _ready():
+	for child in get_children():
+		if child in _shapes: continue
+		if child.name == 'PowerCollider': continue
+		if child is CollisionShape2D or child is NavigationPolygonInstance:
+			_shapes.append(child)
+
+	
+	
 	add_shapes_to_ship()
 
 func get_nav():

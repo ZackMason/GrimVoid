@@ -71,7 +71,7 @@ func mechanism(alt = false, shots = null):
 
 	print('done')
 #		shots[i] = shot
-func fire_bullet(_b=0):
+func fire_bullet(bullet=0):
 	var nb = _bullet.instance()
 	add_child(nb)
 	nb.position = $RayCast2D.position

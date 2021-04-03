@@ -106,22 +106,14 @@ position = Vector2( -40.817, 97.411 )
 [node name="Engine2" parent="." instance=ExtResource( 7 )]
 position = Vector2( 36.9832, 97.411 )
 
-[node name="Oxygenerater" parent="." groups=[
-"interactable",
-] instance=ExtResource( 8 )]
+[node name="Oxygenerater" parent="." instance=ExtResource( 8 )]
 position = Vector2( 5.91077, 20.0316 )
 scale = Vector2( 0.504274, 0.504274 )
-collision_layer = 5
-collision_mask = 2147483653
 powered_on = true
 
-[node name="Oxygenerater2" parent="." groups=[
-"interactable",
-] instance=ExtResource( 8 )]
+[node name="Oxygenerater2" parent="." instance=ExtResource( 8 )]
 position = Vector2( 77.6307, -16.4732 )
 scale = Vector2( 0.504274, 0.504274 )
-collision_layer = 5
-collision_mask = 2147483653
 powered_on = true
 
 [node name="Heater" parent="." instance=ExtResource( 6 )]

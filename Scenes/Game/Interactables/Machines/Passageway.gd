@@ -37,13 +37,14 @@ func _ready():
 	$door_001.visible = not sealed
 	
 #	return
-	var _ship = get_parent().get_parent()
-	assert(_ship is ShipBase)
-	var gt = shape.global_transform
-	var ns = shape.duplicate()
-	_ship.navs_to_add.append([ns, gt, true])
-	shape.enabled = false
-	
+	if not Engine.editor_hint:
+		var _ship = get_parent().get_parent()
+		assert(_ship is ShipBase)
+		var gt = shape.global_transform
+		var ns = shape.duplicate()
+		_ship.navs_to_add.append([ns, gt, true])
+		shape.enabled = false
+		
 #	connect("connection_changed", RoomConnections, "reparent")
 
 func _notification(what):

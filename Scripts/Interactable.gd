@@ -20,7 +20,7 @@ func _ready():
 var drag_position = null
 var selected = false
 
-func _input_event(viewport, event, shape_idx):
+func _input_event(_viewport, event, _shape_idx):
 	if not ShipEditor.edit_mode: return
 	if event is InputEventMouseButton \
 	and event.button_index == BUTTON_LEFT:

@@ -29,7 +29,6 @@ position = Vector2( 0, -5.66205 )
 
 [node name="FirePoint" type="Position2D" parent="turret_base_001/Pivot" index="0"]
 position = Vector2( 0, -47.3208 )
-scale = Vector2( 1, 1 )
 
 [node name="RayCast2D" type="RayCast2D" parent="turret_base_001/Pivot/FirePoint" index="0"]
 scale = Vector2( 2.66449, 2.66449 )

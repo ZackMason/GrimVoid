@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scenes/Game/Interactables/Weapons/Weapon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Materials/space_shader.tres" type="Shader" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Scenes/Ships/Fighter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Stations/StationBase.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Game/Interactables/Items/Item.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Ships/GunShip.tscn" type="PackedScene" id=9]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 seed = 1
@@ -53,7 +54,7 @@ shader_param/n3 = SubResource( 6 )
 [node name="Camera2D" parent="." instance=ExtResource( 4 )]
 position = Vector2( -448.483, 146.539 )
 smoothing_enabled = true
-follow = NodePath("../Navigation2D/ShipBase2/Character")
+follow = NodePath("../ShipBase/Character")
 
 [node name="Sprite" parent="Camera2D/Node2D" index="0"]
 material = SubResource( 7 )
@@ -75,10 +76,6 @@ rotation = 0.523598
 [node name="ShipBase2" parent="Navigation2D" instance=ExtResource( 6 )]
 position = Vector2( 517.01, 187 )
 
-[node name="Character" parent="Navigation2D/ShipBase2" instance=ExtResource( 3 )]
-position = Vector2( 5.78497, -2.62117 )
-move_speed = 0.9
-
 [node name="Item" parent="Navigation2D/ShipBase2" instance=ExtResource( 8 )]
 position = Vector2( 68.0112, 13.2613 )
 
@@ -99,5 +96,12 @@ amount = 100
 position = Vector2( 67.4373, 26.2953 )
 item_name = "money"
 amount = 100
+
+[node name="ShipBase" parent="." instance=ExtResource( 9 )]
+position = Vector2( 842, 133 )
+
+[node name="Character" parent="ShipBase" instance=ExtResource( 3 )]
+position = Vector2( 1.71661, 32.379 )
+move_speed = 0.9
 
 [editable path="Camera2D"]
