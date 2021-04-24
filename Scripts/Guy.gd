@@ -123,7 +123,7 @@ func pick_up(node):
 ##############################################################
 func _on_RoomArea_area_entered(area):
 	if not _room and area.is_in_group("room"): 
-		print("entered room %s")
+		print("entered room %s" % area.name)
 		_room = area.get_room()
 
 #		if get_parent() != _room:

@@ -1,0 +1,109 @@
+####################################################################################################
+####################################################################################################
+#####################################   Grimvoid   #################################################
+####################################################################################################
+####################################################################################################
+
+Author: Zackery Mason-Blaug 
+Date: 4/2/2021
+
+####################################################################################################
+Elevator Pitch
+####################################################################################################
+
+Grimvoid is a Scifi Survival Horror roguelike where you must build ship, fight to survive, and travel
+to ???
+
+####################################################################################################
+Mechanics
+####################################################################################################
+Ship Building:
+    undecided:
+    -- Ships are comprised of multiple rooms connected by hallways
+        -- Pros:
+            -- Easier??
+        -- Cons:
+            -- Physics
+            -- Performance?
+    -- Ships are tilemaps
+        -- Pros:
+            -- Looks Better
+            -- Better pathfinding
+            -- Simple Physics
+            -- grid based components
+            -- performance??
+        -- Cons:
+            -- been done by other games a lot
+            
+Combat:
+    Melee -> F(Strength)
+    Range -> F(Agility)
+    
+
+Stats:
+    Main:
+        Strength
+        Agility
+        Intellect
+        Luck
+        Stamina
+    Secondary:
+        Bleed
+        Fire
+        Cryo
+        Electric
+        Corrosive
+
+Enemies:
+
+
+Game Progression:
+    Start with small transport vessel, search for ship parts, equipment, fuel???, 
+
+####################################################################################################
+Lore
+####################################################################################################
+Friendly Factions:
+    Alpha Collective
+
+Neutral Factions:
+    Terra Federation
+    Space Elves
+    Gooboys
+
+Enemy Factions:
+    Bandits
+    Elder
+    Space Ork
+    AI
+
+Space Travel Names:
+ --Starwarp
+ --Stardrive
+ --Stellarwarp
+
+
+Space Travel Lore:
+    Scientist discovered how to connect stars using cosmic wormholes to hop between systems,
+    The only problem is that monsters come from the wormholes, called The Elder, thousands of years after this discovery
+    humanity has traveled far through out the galaxy, but so has the elders, which has caused major trouble.
+    As Humanity Spread among the stars, their strength weakened and they soon found themselves overwhelmed with the eldrich
+    forces now inhabiting the universe. To make matters worse, while exploring a distance star system, the humans
+    uncovered to existence of orks, and accidentally introduced them to space travel. Since this incident a couple hundred
+    years ago, the orks have spread rapidly across the universe, and unlike humans, it seems that their numbers only grow with 
+    the more land that they conquer 
+
+Bandits:
+    Often living in asteroid fields, bandits will attack anyone their sensors pick up. They have been known to
+    form giants warclans to seige planets and space stations of the federation
+
+Elder Lore:
+
+Space Orks:
+    Orks primarily use overwhelming numbers and brutal melee combat to overwhelm their enemies.
+
+AI:
+
+
+
+####################################################################################################

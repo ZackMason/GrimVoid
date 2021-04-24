@@ -54,7 +54,7 @@ shader_param/n3 = SubResource( 6 )
 [node name="Camera2D" parent="." instance=ExtResource( 4 )]
 position = Vector2( -448.483, 146.539 )
 smoothing_enabled = true
-follow = NodePath("../ShipBase/Character")
+follow = NodePath("../Navigation2D/ShipBase2/Character")
 
 [node name="Sprite" parent="Camera2D/Node2D" index="0"]
 material = SubResource( 7 )
@@ -97,11 +97,11 @@ position = Vector2( 67.4373, 26.2953 )
 item_name = "money"
 amount = 100
 
-[node name="ShipBase" parent="." instance=ExtResource( 9 )]
-position = Vector2( 842, 133 )
-
-[node name="Character" parent="ShipBase" instance=ExtResource( 3 )]
-position = Vector2( 1.71661, 32.379 )
+[node name="Character" parent="Navigation2D/ShipBase2" instance=ExtResource( 3 )]
+position = Vector2( 63.353, 95.4911 )
 move_speed = 0.9
+
+[node name="ShipBase" parent="Navigation2D" instance=ExtResource( 9 )]
+position = Vector2( 842, 133 )
 
 [editable path="Camera2D"]
