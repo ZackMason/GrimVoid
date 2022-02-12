@@ -1,6 +1,8 @@
 extends RigidBody2D
 class_name ShipBase
 
+signal ShipSystemsAddedOrRemoved
+
 export var ship_name := 'Arrowhead'
 
 onready var rooms = $Rooms.get_children()

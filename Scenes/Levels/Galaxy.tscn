@@ -47,9 +47,7 @@ shader_param/n1 = SubResource( 2 )
 shader_param/n2 = SubResource( 4 )
 shader_param/n3 = SubResource( 6 )
 
-[node name="Galaxy" type="Node2D" groups=[
-"world",
-]]
+[node name="Galaxy" type="Node2D" groups=["world"]]
 
 [node name="Camera2D" parent="." instance=ExtResource( 4 )]
 position = Vector2( -448.483, 146.539 )
@@ -65,9 +63,7 @@ position = Vector2( 549.019, 49.4419 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 5 )
 
-[node name="Navigation2D" type="Navigation2D" parent="." groups=[
-"nav",
-]]
+[node name="Navigation2D" type="Navigation2D" parent="." groups=["nav"]]
 
 [node name="StationBase" parent="Navigation2D" instance=ExtResource( 7 )]
 position = Vector2( 1259.58, -367.688 )

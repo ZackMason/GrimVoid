@@ -9,9 +9,7 @@
 [ext_resource path="res://Scenes/Ships/Destroyer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Ships/Monster.tscn" type="PackedScene" id=12]
 
-[node name="World" type="Node2D" groups=[
-"world",
-]]
+[node name="World" type="Node2D" groups=["world"]]
 position = Vector2( 0.946014, -1.36646 )
 
 [node name="Camera2D" parent="." instance=ExtResource( 3 )]
